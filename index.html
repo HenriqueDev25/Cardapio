@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adega Pai D'égua | Cardápio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #af7a3d;
+            --primary-dark: #a56d2e;
+            --primary-light: #FF6B6B;
+            --accent: #FDEBD0;
+            --dark: #1f262c;
+            --light: #ECF0F1;
+            --white: #FFFFFF;
+            --success: #229251;
+            --warning: #F39C12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Estilizado */
+        header {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-family: 'Bungee', cursive;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        /* Seções */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-family: 'Bungee', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            color: var(--dark);
+            text-transform: uppercase;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 3px;
+        }
+        
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .menu-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            position: relative;
+            border: 2px solid transparent;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: var(--primary);
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--success);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .card-badge.warning {
+            background-color: var(--warning);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-image:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .card-content {
+            padding: 20px;
+            position: relative;
+        }
+        
+        .card-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-name {
+            font-family: 'Bungee', cursive;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--dark);
+            text-transform: uppercase;
+        }
+        
+        .card-price {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .card-description {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .card-tag {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Seção de Bebidas */
+        .drink-category {
+            margin: 50px 0 30px;
+        }
+        
+        .drink-category-title {
+            font-family: 'Bungee', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .drink-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .drink-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .drink-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .drink-info {
+            flex: 1;
+        }
+        
+        .drink-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .drink-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .drink-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-left: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Bungee', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-about {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .footer-title {
+            font-family: 'Bungee', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            opacity: 0.8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-light);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1 class="animate">Adega Pai D'égua</h1>
+            <p class="subtitle animate delay-1">Jardim Jaqueline, São Paulo - SP</p>
+            <a href="#bebidas" class="btn animate delay-2">Ver Cardápio</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Seção de Bebidas -->
+        <section id="bebidas">
+            <h2 class="section-title animate">Bebidas</h2>
+            
+            <div class="drink-category">
+                <h3 class="drink-category-title">Doses</h3>
+                <div class="drink-grid">
+                    <div class="drink-card animate delay-1">
+                        <div class="drink-info">
+                            <div class="drink-name">Copo de 10</div>
+                            <div class="drink-details">Vodka, Whisky, Gin ou Cachaça, Energetico e Gelo</div>
+                        </div>
+                        <div class="drink-price">R$ 10,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-2">
+                        <div class="drink-info">
+                            <div class="drink-name">Copo de 12</div>
+                            <div class="drink-details">Dose maior de destilados, Energetico e Gelo</div>
+                        </div>
+                        <div class="drink-price">R$ 12,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-3">
+                        <div class="drink-info">
+                            <div class="drink-name">Baldão</div>
+                            <div class="drink-details">Dose generosa para compartilhar</div>
+                        </div>
+                        <div class="drink-price">R$ 30,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-4">
+                        <div class="drink-info">
+                            <div class="drink-name">Dose Premium</div>
+                            <div class="drink-details">Johnnie Walker, Absolut, Malibu, Energetico e Gelo</div>
+                        </div>
+                        <div class="drink-price">R$ 25,00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="drink-category">
+                <h3 class="drink-category-title">Cervejas</h3>
+                <div class="drink-grid">
+                    <div class="drink-card animate delay-1">
+                        <div class="drink-info">
+                            <div class="drink-name">Skol/Original</div>
+                            <div class="drink-details">Lata 350ml</div>
+                        </div>
+                        <div class="drink-price">R$ 8,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-2">
+                        <div class="drink-info">
+                            <div class="drink-name">Brahma</div>
+                            <div class="drink-details">Lata 350ml ou Garrafa 600ml</div>
+                        </div>
+                        <div class="drink-price">R$ 8-15</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-3">
+                        <div class="drink-info">
+                            <div class="drink-name">Heineken</div>
+                            <div class="drink-details">Long neck 330ml</div>
+                        </div>
+                        <div class="drink-price">R$ 10,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-4">
+                        <div class="drink-info">
+                            <div class="drink-name">Amstel</div>
+                            <div class="drink-details">Long neck 330ml</div>
+                        </div>
+                        <div class="drink-price">R$ 12,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-1">
+                        <div class="drink-info">
+                            <div class="drink-name">Corona</div>
+                            <div class="drink-details">Garrafa 600ml</div>
+                        </div>
+                        <div class="drink-price">R$ 18,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-2">
+                        <div class="drink-info">
+                            <div class="drink-name">Budweiser</div>
+                            <div class="drink-details">Long neck 330ml</div>
+                        </div>
+                        <div class="drink-price">R$ 12,00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="drink-category">
+                <h3 class="drink-category-title">Drinks</h3>
+                <div class="drink-grid">
+                    <div class="drink-card animate delay-1">
+                        <div class="drink-info">
+                            <div class="drink-name">Caipirinha</div>
+                            <div class="drink-details">Limão, açúcar e cachaça</div>
+                        </div>
+                        <div class="drink-price">R$ 18,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-2">
+                        <div class="drink-info">
+                            <div class="drink-name">Negroni</div>
+                            <div class="drink-details">Gin, Campari e Vermute</div>
+                        </div>
+                        <div class="drink-price">R$ 25,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-3">
+                        <div class="drink-info">
+                            <div class="drink-name">Mojito</div>
+                            <div class="drink-details">Hortelã, limão, rum e soda</div>
+                        </div>
+                        <div class="drink-price">R$ 22,00</div>
+                    </div>
+                    
+                    <div class="drink-card animate delay-4">
+                        <div class="drink-info">
+                            <div class="drink-name">Aperol Spritz</div>
+                            <div class="drink-details">Aperol, prosecco e água com gás</div>
+                        </div>
+                        <div class="drink-price">R$ 28,00</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção de Cigarros -->
+        <section>
+            <h2 class="section-title animate">Cigarros</h2>
+            <div class="menu-grid">
+                <div class="menu-card animate delay-1">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.YlpKpP04QX6Z9Pu9hkL-VAHaHa?w=200&h=200&c=12&rs=1&p=0&o=6&pid=23.1');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Marlboro</div>
+                            <div class="card-price">R$ 15,00</div>
+                        </div>
+                        <p class="card-description">Vermelho, Gold ou Ice</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Importado</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="menu-card animate delay-3">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.nox3WNX8VR2JKthOUkIk-wHaEO?rs=1&pid=ImgDetMain');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">chesterfield</div>
+                            <div class="card-price">R$ 16,00</div>
+                        </div>
+                        <p class="card-description">Azul ou Terras Brasileiras</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Nacional</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card animate delay-4">
+                    <div class="card-image" style="background-image: url('https://pluspng.com/logo-img/ro77rot6f8c-rothmans-logo-rothmans-logo-png-transparent-amp-svg-vector-freebie-supply.png');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Rothmans</div>
+                            <div class="card-price">R$ 12,00</div>
+                        </div>
+                        <p class="card-description">Vermelho ou Azul</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Nacional</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção de Salgadinhos -->
+        <section>
+            <h2 class="section-title animate">Salgadinhos</h2>
+            <div class="menu-grid">
+                <div class="menu-card animate delay-1">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.edhRPKhrz0RSNRhAiPtGdgHaEK?rs=1&pid=ImgDetMain');"></div>
+                    <div class="card-content">
+                    <div class="card-title">
+                        <div class="card-name">Doritos</div>
+                        <div class="card-price">R$ 5,00</div>
+                    </div>
+                    <p class="card-description">Doritos Original</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Salgadinho</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="menu-card animate delay-1">
+                <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OPHS.oVuKXJUVlcQazQ474C474?w=160&h=220&rs=1&o=5&pid=21.1');"></div>
+                <div class="card-content">
+                    <div class="card-title">
+
+                            <div class="card-name">Fofura</div>
+                            <div class="card-price">R$ 5,00</div>
+                        </div>
+                        <p class="card-description">Original, Cebola e Queijo</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Salgadinho</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card animate delay-2">
+                    <div class="card-image" style="background-image: url('data:image/jpeg;base64,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');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Torcida</div>
+                            <div class="card-price">R$ 3,00</div>
+                        </div>
+                        <p class="card-description">Carne, queijo, Original ou mexicano</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Salgadinho</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">Pai D'égua</div>
+                    <p class="footer-about">O melhor point da região com drinks incríveis, cervejas geladas e ótima música!</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Horário</h3>
+                    <ul class="footer-links">
+                        <li>Terça a Quinta: 11h30 - 23h</li>
+                        <li>Sexta e Sábado: 12h30 - 02h</li>
+                        <li>Domingo: 11h30 - 23h</li>
+                        <li>Segunda: Fechado</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Contato</h3>
+                    <ul class="footer-links">
+                        <li>Rua Cariri Mirim, 72</li>
+                        <li>Jardim Jaqueline - SP</li>
+                        <li>(11) 91404-2925</li>
+                    </ul>
+                </div>
+                
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Adega Pai D'égua. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Font Awesome para ícones -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
