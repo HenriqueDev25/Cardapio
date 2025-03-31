@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Adega Pai D'égua | Cardápio</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="icon" href="logo.ico" type="image/x-icon">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adega Pai D'égua | Cardápio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="logo.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Bungee&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --primary: #af7a3d;
             --primary-dark: #a56d2e;
-            --primary-light: #FF6B6B;
+            --primary-light: rgb(168, 92, 30);
             --accent: #FDEBD0;
             --dark: #1f262c;
             --light: #ECF0F1;
             --white: #FFFFFF;
             --success: #229251;
             --warning: #F39C12;
+            --error: #e74c3c;
         }
         
         * {
@@ -88,6 +90,7 @@
             border: none;
             font-size: 1.1rem;
             box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            cursor: pointer;
         }
         
         .btn:hover {
@@ -138,6 +141,9 @@
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
             position: relative;
             border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
         .menu-card:hover {
@@ -168,6 +174,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            flex-shrink: 0;
         }
         
         .card-image:after {
@@ -183,6 +190,9 @@
         .card-content {
             padding: 20px;
             position: relative;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .card-title {
@@ -216,12 +226,14 @@
             margin-bottom: 15px;
             font-size: 0.95rem;
             line-height: 1.6;
+            flex-grow: 1;
         }
         
         .card-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 15px;
         }
         
         .card-tag {
@@ -231,6 +243,54 @@
             border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 600;
+        }
+        
+        /* Botão Adicionar ao Carrinho */
+        .add-to-cart {
+            width: 100%;
+            padding: 8px 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .add-to-cart:active {
+            transform: translateY(0);
+        }
+        
+        .add-to-cart.added {
+            background-color: var(--success);
+            animation: pulse 0.5s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Para os botões nos cards de bebidas */
+        .drink-card .add-to-cart {
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
         }
         
         /* Seção de Bebidas */
@@ -292,90 +352,392 @@
             margin-left: 15px;
         }
         
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 60px 0 30px;
-            margin-top: 60px;
+        /* Carrinho de Compras */
+        .cart-icon {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background-color: var(--primary);
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
         
+        .cart-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .cart-icon i {
+            font-size: 1.5rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--warning);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            z-index: 999;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .cart-title {
+            font-family: 'Bungee', cursive;
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: transform 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-cart:hover {
+            transform: rotate(90deg);
+            background-color: #f5f5f5;
+        }
+        
+        .cart-items {
+            flex: 1;
+            margin-bottom: 20px;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item:hover {
+            background-color: #fafafa;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+            margin-right: 15px;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cart-item-quantity {
+            background-color: #f0f0f0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .cart-item-quantity:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .cart-item-quantity-value {
+            min-width: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #ff5252;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .cart-item-remove:hover {
+            transform: scale(1.1);
+            background-color: #ffeeee;
+        }
+        
+        .cart-footer {
+            border-top: 2px solid #f0f0f0;
+            padding-top: 20px;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .cart-total-label {
+            color: var(--dark);
+        }
+        
+        .cart-total-value {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(34, 146, 81, 0.3);
+        }
+        
+        .checkout-btn:hover {
+            background-color: #1e8449;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(34, 146, 81, 0.4);
+        }
+        
+        .checkout-btn:active {
+            transform: translateY(0);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .empty-cart-icon {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+        
+        .empty-cart-message {
+            color: #888;
+            font-size: 1.1rem;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 998;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* Alertas */
+        .alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .alert.show {
+            opacity: 1;
+        }
+        
+        .alert-warning {
+            background-color: var(--warning);
+        }
+        
+        /* Footer Estilizado */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 60px 0 20px;
+            margin-top: 40px;
+        }
+
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
         }
-        
+
         .footer-logo {
             font-family: 'Bungee', cursive;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--white);
-        }
-        
-        .footer-about {
-            opacity: 0.8;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-        
-        .footer-title {
-            font-family: 'Bungee', cursive;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--white);
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
             text-transform: uppercase;
         }
-        
-        .footer-links {
-            list-style: none;
+
+        .footer-about {
+            color: #bbb;
+            margin-bottom: 20px;
+            line-height: 1.7;
         }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: var(--white);
-            opacity: 0.8;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary-light);
-        }
-        
+
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
         }
-        
-        .social-links a {
+
+        .social-links a, 
+        .social-links button {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-            background-color: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            color: var(--light);
             transition: all 0.3s ease;
-            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
-        
-        .social-links a:hover {
+
+        .social-links a:hover, 
+        .social-links button:hover {
             background-color: var(--primary);
             transform: translateY(-3px);
         }
-        
+
+        .footer-title {
+            font-family: 'Bungee', cursive;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+            color: #bbb;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links li i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .footer-links li:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.1);
-            opacity: 0.7;
+            color: #888;
             font-size: 0.9rem;
         }
         
@@ -387,6 +749,10 @@
             
             .section-title {
                 font-size: 2.2rem;
+            }
+            
+            .cart-sidebar {
+                width: 350px;
             }
         }
         
@@ -407,6 +773,53 @@
                 padding: 12px 30px;
                 font-size: 1rem;
             }
+            
+            .cart-sidebar {
+                width: 100%;
+                max-width: 100%;
+                right: -100%;
+            }
+            
+            .cart-sidebar.open {
+                right: 0;
+            }
+            
+            .cart-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-title {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card-name {
+                font-size: 1.3rem;
+            }
+            
+            .card-price {
+                font-size: 1rem;
+                min-width: 70px;
+            }
         }
         
         /* Animations */
@@ -426,6 +839,40 @@
     </style>
 </head>
 <body>
+    <!-- Ícone do Carrinho -->
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+    
+    <!-- Sidebar do Carrinho -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">Seu Carrinho</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <div class="empty-cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                </div>
+                <p class="empty-cart-message">Seu carrinho está vazio</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="cart-total-label">Total:</span>
+                <span class="cart-total-value" id="cartTotal">R$ 0,00</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fas fa-whatsapp"></i> Finalizar Pedido
+            </button>
+        </div>
+    </div>
+    
+    <!-- Overlay para quando o carrinho estiver aberto -->
+    <div class="overlay" id="overlay"></div>
+    
     <header>
         <div class="header-content">
             <h1 class="animate">Adega Pai D'égua</h1>
@@ -448,6 +895,9 @@
                             <div class="drink-details">Vodka, Whisky, Gin ou Cachaça, Energetico e Gelo</div>
                         </div>
                         <div class="drink-price">R$ 10,00</div>
+                        <button class="add-to-cart" data-name="Copo de 10" data-price="10.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-2">
@@ -456,6 +906,9 @@
                             <div class="drink-details">Dose maior de destilados, Energetico e Gelo</div>
                         </div>
                         <div class="drink-price">R$ 12,00</div>
+                        <button class="add-to-cart" data-name="Copo de 12" data-price="12.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-3">
@@ -464,6 +917,9 @@
                             <div class="drink-details">Dose generosa para compartilhar</div>
                         </div>
                         <div class="drink-price">R$ 30,00</div>
+                        <button class="add-to-cart" data-name="Baldão" data-price="30.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-4">
@@ -472,6 +928,9 @@
                             <div class="drink-details">Johnnie Walker, Absolut, Malibu, Energetico e Gelo</div>
                         </div>
                         <div class="drink-price">R$ 25,00</div>
+                        <button class="add-to-cart" data-name="Dose Premium" data-price="25.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -485,6 +944,9 @@
                             <div class="drink-details">Lata 350ml</div>
                         </div>
                         <div class="drink-price">R$ 8,00</div>
+                        <button class="add-to-cart" data-name="Skol/Original (Lata 350ml)" data-price="8.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-2">
@@ -493,6 +955,14 @@
                             <div class="drink-details">Lata 350ml ou Garrafa 600ml</div>
                         </div>
                         <div class="drink-price">R$ 8-15</div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="add-to-cart" data-name="Brahma (Lata 350ml)" data-price="8.00" style="flex: 1;">
+                                <i class="fas fa-plus"></i> Lata
+                            </button>
+                            <button class="add-to-cart" data-name="Brahma (Garrafa 600ml)" data-price="15.00" style="flex: 1;">
+                                <i class="fas fa-plus"></i> Garrafa
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="drink-card animate delay-3">
@@ -501,6 +971,9 @@
                             <div class="drink-details">Long neck 330ml</div>
                         </div>
                         <div class="drink-price">R$ 10,00</div>
+                        <button class="add-to-cart" data-name="Heineken (Long neck 330ml)" data-price="10.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-4">
@@ -509,6 +982,9 @@
                             <div class="drink-details">Long neck 330ml</div>
                         </div>
                         <div class="drink-price">R$ 12,00</div>
+                        <button class="add-to-cart" data-name="Amstel (Long neck 330ml)" data-price="12.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-1">
@@ -517,6 +993,9 @@
                             <div class="drink-details">Garrafa 600ml</div>
                         </div>
                         <div class="drink-price">R$ 18,00</div>
+                        <button class="add-to-cart" data-name="Corona (Garrafa 600ml)" data-price="18.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-2">
@@ -525,6 +1004,9 @@
                             <div class="drink-details">Long neck 330ml</div>
                         </div>
                         <div class="drink-price">R$ 12,00</div>
+                        <button class="add-to-cart" data-name="Budweiser (Long neck 330ml)" data-price="12.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -538,6 +1020,9 @@
                             <div class="drink-details">Limão, açúcar e cachaça</div>
                         </div>
                         <div class="drink-price">R$ 18,00</div>
+                        <button class="add-to-cart" data-name="Caipirinha" data-price="18.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-2">
@@ -546,6 +1031,9 @@
                             <div class="drink-details">Gin, Campari e Vermute</div>
                         </div>
                         <div class="drink-price">R$ 25,00</div>
+                        <button class="add-to-cart" data-name="Negroni" data-price="25.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-3">
@@ -554,6 +1042,9 @@
                             <div class="drink-details">Hortelã, limão, rum e soda</div>
                         </div>
                         <div class="drink-price">R$ 22,00</div>
+                        <button class="add-to-cart" data-name="Mojito" data-price="22.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                     
                     <div class="drink-card animate delay-4">
@@ -562,11 +1053,71 @@
                             <div class="drink-details">Aperol, prosecco e água com gás</div>
                         </div>
                         <div class="drink-price">R$ 28,00</div>
+                        <button class="add-to-cart" data-name="Aperol Spritz" data-price="28.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
         
+        <!-- Seção de Garrafas -->
+        <section>
+            <h2 class="section-title animate">Garrafas</h2>
+            <div class="menu-grid">
+                <div class="menu-card animate delay-1">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.GzXY-Dzx78_xJcIgEWswpwHaDV?rs=1&pid=ImgDetMain');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Johnnie Walker</div>
+                            <div class="card-price">R$ 120,00</div>
+                        </div>
+                        <p class="card-description">Vermelho, Black, Gold e Blue</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Importado</span>
+                        </div>
+                        <button class="add-to-cart" data-name="Johnnie Walker" data-price="120.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="menu-card animate delay-2">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.4l-mhIbLcspj3Ifl7rrpiwAAAA?w=147&h=187&c=7&r=0&o=5&pid=1.7');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Kariri</div>
+                            <div class="card-price">R$ 16,00</div>
+                        </div>
+                        <p class="card-description">Cachaça</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Nacional</span>
+                        </div>
+                        <button class="add-to-cart" data-name="Kariri" data-price="16.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="menu-card animate delay-3">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.RSgf3_cr1C-OTHUu2WoA_gHaEK?rs=1&pid=ImgDetMain');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Jack Daniel's</div>
+                            <div class="card-price">R$ 120,00</div>
+                        </div>
+                        <p class="card-description">Original e Maçã verde</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Importado</span>
+                        </div>
+                        <button class="add-to-cart" data-name="Jack Daniel's" data-price="120.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Seção de Cigarros -->
         <section>
             <h2 class="section-title animate">Cigarros</h2>
@@ -582,25 +1133,30 @@
                         <div class="card-tags">
                             <span class="card-tag">Importado</span>
                         </div>
+                        <button class="add-to-cart" data-name="Marlboro" data-price="15.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
                 
-                
-                <div class="menu-card animate delay-3">
+                <div class="menu-card animate delay-2">
                     <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.nox3WNX8VR2JKthOUkIk-wHaEO?rs=1&pid=ImgDetMain');"></div>
                     <div class="card-content">
                         <div class="card-title">
-                            <div class="card-name">chesterfield</div>
+                            <div class="card-name">Chesterfield</div>
                             <div class="card-price">R$ 16,00</div>
                         </div>
                         <p class="card-description">Azul ou Terras Brasileiras</p>
                         <div class="card-tags">
                             <span class="card-tag">Nacional</span>
                         </div>
+                        <button class="add-to-cart" data-name="Chesterfield" data-price="16.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
                 
-                <div class="menu-card animate delay-4">
+                <div class="menu-card animate delay-3">
                     <div class="card-image" style="background-image: url('https://pluspng.com/logo-img/ro77rot6f8c-rothmans-logo-rothmans-logo-png-transparent-amp-svg-vector-freebie-supply.png');"></div>
                     <div class="card-content">
                         <div class="card-title">
@@ -611,6 +1167,9 @@
                         <div class="card-tags">
                             <span class="card-tag">Nacional</span>
                         </div>
+                        <button class="add-to-cart" data-name="Rothmans" data-price="12.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -623,23 +1182,24 @@
                 <div class="menu-card animate delay-1">
                     <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.edhRPKhrz0RSNRhAiPtGdgHaEK?rs=1&pid=ImgDetMain');"></div>
                     <div class="card-content">
-                    <div class="card-title">
-                        <div class="card-name">Doritos</div>
-                        <div class="card-price">R$ 5,00</div>
-                    </div>
-                    <p class="card-description">Doritos Original</p>
-                    <div class="card-tags">
-                        <span class="card-tag">Salgadinho</span>
+                        <div class="card-title">
+                            <div class="card-name">Doritos</div>
+                            <div class="card-price">R$ 5,00</div>
+                        </div>
+                        <p class="card-description">Doritos Original</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Salgadinho</span>
+                        </div>
+                        <button class="add-to-cart" data-name="Doritos" data-price="5.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
-            </div>
-            
-            
-            <div class="menu-card animate delay-1">
-                <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OPHS.oVuKXJUVlcQazQ474C474?w=160&h=220&rs=1&o=5&pid=21.1');"></div>
-                <div class="card-content">
-                    <div class="card-title">
-
+                
+                <div class="menu-card animate delay-2">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OPHS.oVuKXJUVlcQazQ474C474?w=160&h=220&rs=1&o=5&pid=21.1');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
                             <div class="card-name">Fofura</div>
                             <div class="card-price">R$ 5,00</div>
                         </div>
@@ -647,11 +1207,14 @@
                         <div class="card-tags">
                             <span class="card-tag">Salgadinho</span>
                         </div>
+                        <button class="add-to-cart" data-name="Fofura" data-price="5.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
                 
-                <div class="menu-card animate delay-2">
-                    <div class="card-image" style="background-image: url('data:image/jpeg;base64,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');"></div>
+                <div class="menu-card animate delay-3">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.O8T9iDwcWZp8YVMkUPpOdwHaHa?rs=1&pid=ImgDetMain');"></div>
                     <div class="card-content">
                         <div class="card-title">
                             <div class="card-name">Torcida</div>
@@ -661,6 +1224,66 @@
                         <div class="card-tags">
                             <span class="card-tag">Salgadinho</span>
                         </div>
+                        <button class="add-to-cart" data-name="Torcida" data-price="3.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Outros -->
+        <section>
+            <h2 class="section-title animate">Outros</h2>
+            <div class="menu-grid">
+                <div class="menu-card animate delay-1">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.kD5461xRM6Ipc9ENNxCTHAHaHa?rs=1&pid=ImgDetMain');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Bem Bolado</div>
+                            <div class="card-price">R$ 5,00</div>
+                        </div>
+                        <p class="card-description">Original</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Seda</span>
+                        </div>
+                        <button class="add-to-cart" data-name="Bem Bolado" data-price="5.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="menu-card animate delay-2">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.hZaUY1HSMj4WxRGSMTfZEgHaHa?w=204&h=203&c=7&r=0&o=5&pid=1.7');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Trident</div>
+                            <div class="card-price">R$ 3,00</div>
+                        </div>
+                        <p class="card-description">Original, melancia e menta</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Chiclete</span>
+                        </div>
+                        <button class="add-to-cart" data-name="Trident" data-price="3.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="menu-card animate delay-3">
+                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.O8T9iDwcWZp8YVMkUPpOdwHaHa?rs=1&pid=ImgDetMain');"></div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            <div class="card-name">Torcida</div>
+                            <div class="card-price">R$ 3,00</div>
+                        </div>
+                        <p class="card-description">Carne, queijo, Original ou mexicano</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Salgadinho</span>
+                        </div>
+                        <button class="add-to-cart" data-name="Torcida" data-price="3.00">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -676,29 +1299,29 @@
                     <div class="social-links">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <button id="whatsappBtn"><i class="fab fa-whatsapp"></i></button>
                     </div>
                 </div>
                 
                 <div>
                     <h3 class="footer-title">Horário</h3>
                     <ul class="footer-links">
-                        <li>Terça a Quinta: 11h30 - 23h</li>
-                        <li>Sexta e Sábado: 12h30 - 02h</li>
-                        <li>Domingo: 11h30 - 23h</li>
-                        <li>Segunda: Fechado</li>
+                        <li><i class="far fa-clock"></i> Terça a Quinta: 11h30 - 23h</li>
+                        <li><i class="far fa-clock"></i> Sexta e Sábado: 12h30 - 02h</li>
+                        <li><i class="far fa-clock"></i> Domingo: 11h30 - 23h</li>
+                        <li><i class="far fa-clock"></i> Segunda: Fechado</li>
                     </ul>
                 </div>
                 
                 <div>
                     <h3 class="footer-title">Contato</h3>
                     <ul class="footer-links">
-                        <li>Rua Cariri Mirim, 72</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Rua Cariri Mirim, 72</li>
                         <li>Jardim Jaqueline - SP</li>
-                        <li>(11) 91404-2925</li>
+                        <li><i class="fas fa-phone"></i> (11) 91404-2925</li>
+                        <li><i class="fas fa-envelope"></i> contato@paidegua.com</li>
                     </ul>
                 </div>
-                
             </div>
             
             <div class="copyright">
@@ -706,8 +1329,238 @@
             </div>
         </div>
     </footer>
-    
-    <!-- Font Awesome para ícones -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <script>
+        // Carrinho de Compras
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartIcon = document.getElementById('cartIcon');
+            const cartSidebar = document.getElementById('cartSidebar');
+            const closeCart = document.getElementById('closeCart');
+            const overlay = document.getElementById('overlay');
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Abrir/Fechar carrinho
+            cartIcon.addEventListener('click', toggleCart);
+            closeCart.addEventListener('click', toggleCart);
+            overlay.addEventListener('click', toggleCart);
+            
+            function toggleCart() {
+                cartSidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = cartSidebar.classList.contains('open') ? 'hidden' : 'auto';
+            }
+            
+            // Adicionar item ao carrinho
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    addToCart(e.target);
+                });
+            });
+            
+            function addToCart(button) {
+                const name = button.getAttribute('data-name');
+                const price = parseFloat(button.getAttribute('data-price'));
+                
+                // Verificar se o item já está no carrinho
+                const existingItem = cart.find(item => item.name === name);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        name,
+                        price,
+                        quantity: 1
+                    });
+                }
+                
+                // Salvar no localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                updateCart();
+                
+                // Feedback visual melhorado
+                const icon = button.querySelector('i') || button;
+                const originalHTML = button.innerHTML;
+                
+                button.innerHTML = '<i class="fas fa-check"></i> Adicionado';
+                button.classList.add('added');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('added');
+                }, 1500);
+                
+                // Animar o ícone do carrinho
+                cartIcon.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    cartIcon.style.transform = 'scale(1)';
+                }, 300);
+            }
+            
+            // Atualizar carrinho
+            function updateCart() {
+                // Limpar carrinho
+                cartItems.innerHTML = '';
+                
+                if (cart.length === 0) {
+                    cartItems.innerHTML = `
+                        <div class="empty-cart">
+                            <div class="empty-cart-icon">
+                                <i class="fas fa-shopping-basket"></i>
+                            </div>
+                            <p class="empty-cart-message">Seu carrinho está vazio</p>
+                        </div>
+                    `;
+                    cartCount.textContent = '0';
+                    cartTotal.textContent = 'R$ 0,00';
+                    return;
+                }
+                
+                // Adicionar itens
+                let total = 0;
+                let itemCount = 0;
+                
+                cart.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    itemCount += item.quantity;
+                    
+                    itemElement.innerHTML = `
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">R$ ${item.price.toFixed(2)} (un)</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="cart-item-quantity minus" data-index="${index}">-</button>
+                            <span class="cart-item-quantity-value">${item.quantity}</span>
+                            <button class="cart-item-quantity plus" data-index="${index}">+</button>
+                            <button class="cart-item-remove" data-index="${index}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    cartItems.appendChild(itemElement);
+                });
+                
+                // Atualizar contador e total
+                cartCount.textContent = itemCount;
+                cartTotal.textContent = `R$ ${total.toFixed(2)}`;
+                
+                // Adicionar eventos para os botões de quantidade e remoção
+                document.querySelectorAll('.cart-item-quantity.minus').forEach(button => {
+                    button.addEventListener('click', decreaseQuantity);
+                });
+                
+                document.querySelectorAll('.cart-item-quantity.plus').forEach(button => {
+                    button.addEventListener('click', increaseQuantity);
+                });
+                
+                document.querySelectorAll('.cart-item-remove').forEach(button => {
+                    button.addEventListener('click', removeItem);
+                });
+            }
+            
+            // Funções para manipular quantidade
+            function decreaseQuantity(event) {
+                const index = event.target.getAttribute('data-index');
+                if (cart[index].quantity > 1) {
+                    cart[index].quantity -= 1;
+                } else {
+                    // Se a quantidade for 1, remover o item
+                    cart.splice(index, 1);
+                }
+                saveAndUpdateCart();
+            }
+            
+            function increaseQuantity(event) {
+                const index = event.target.getAttribute('data-index');
+                cart[index].quantity += 1;
+                saveAndUpdateCart();
+            }
+            
+            function removeItem(event) {
+                const index = event.target.closest('.cart-item-remove').getAttribute('data-index');
+                cart.splice(index, 1);
+                saveAndUpdateCart();
+            }
+            
+            function saveAndUpdateCart() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+            }
+            
+            // Finalizar compra
+            checkoutBtn.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    showAlert('Seu carrinho está vazio!', 'warning');
+                    return;
+                }
+                
+                // Formatar mensagem para WhatsApp
+                let message = '🚀 *Pedido da Adega Pai D\'égua* 🚀\n\n';
+                message += 'Olá, gostaria de fazer o seguinte pedido:\n\n';
+                
+                let total = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    message += `➡ ${item.quantity}x ${item.name} - R$ ${itemTotal.toFixed(2)}\n`;
+                    total += itemTotal;
+                });
+                
+                message += `\n💰 *Total: R$ ${total.toFixed(2)}*`;
+                message += '\n\n💬 *Observações:* \n[ALGUMAS INSTRUÇÕES ESPECIAIS?]';
+                
+                // Codificar a mensagem para URL
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/5511914042925?text=${encodedMessage}`;
+                
+                // Abrir WhatsApp
+                window.open(whatsappUrl, '_blank');
+            });
+            
+            // Botão WhatsApp do footer
+            whatsappBtn.addEventListener('click', () => {
+                const message = 'Olá, gostaria de mais informações sobre a Adega Pai D\'égua!';
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/5511914042925?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
+            });
+            
+            // Mostrar alerta estilizado
+            function showAlert(message, type = 'warning') {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.textContent = message;
+                document.body.appendChild(alert);
+                
+                setTimeout(() => {
+                    alert.classList.add('show');
+                }, 10);
+                
+                setTimeout(() => {
+                    alert.classList.remove('show');
+                    setTimeout(() => {
+                        document.body.removeChild(alert);
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Atualizar carrinho ao carregar a página
+            updateCart();
+        });
+    </script>
 </body>
 </html>
