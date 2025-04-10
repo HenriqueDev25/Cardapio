@@ -1,1589 +1,912 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adega Pai D'égua | Cardápio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" href="logo.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Bungee&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --primary: #af7a3d;
-            --primary-dark: #a56d2e;
-            --primary-light: rgb(168, 92, 30);
-            --accent: #FDEBD0;
-            --dark: #1f262c;
-            --light: #ECF0F1;
-            --white: #FFFFFF;
-            --success: #229251;
-            --warning: #F39C12;
-            --error: #e74c3c;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Estilizado */
-        header {
-            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            padding: 80px 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            font-family: 'Bungee', cursive;
-            font-size: 4.5rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--white);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-            color: var(--accent);
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
-        }
-        
-        /* Seções */
-        section {
-            padding: 60px 0;
-        }
-        
-        .section-title {
-            font-family: 'Bungee', cursive;
-            font-size: 2.8rem;
-            margin-bottom: 40px;
-            position: relative;
-            display: inline-block;
-            color: var(--dark);
-            text-transform: uppercase;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            border-radius: 3px;
-        }
-        
-        /* Menu Grid */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .menu-card {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            position: relative;
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .menu-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            border-color: var(--primary);
-        }
-        
-        .card-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: var(--success);
-            color: var(--white);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 2;
-        }
-        
-        .card-badge.warning {
-            background-color: var(--warning);
-        }
-        
-        .card-image {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            flex-shrink: 0;
-        }
-        
-        .card-image:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-        }
-        
-        .card-content {
-            padding: 20px;
-            position: relative;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .card-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .card-name {
-            font-family: 'Bungee', cursive;
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--dark);
-            text-transform: uppercase;
-        }
-        
-        .card-price {
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            min-width: 80px;
-            text-align: center;
-        }
-        
-        .card-description {
-            color: var(--dark);
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-        
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .card-tag {
-            background-color: var(--accent);
-            color: var(--dark);
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        /* Botão Adicionar ao Carrinho */
-        .add-to-cart {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: auto;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .add-to-cart:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        
-        .add-to-cart:active {
-            transform: translateY(0);
-        }
-        
-        .add-to-cart.added {
-            background-color: var(--success);
-            animation: pulse 0.5s;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adega Pai D'égua</title>
+  <link rel="icon" href="logo.ico" type="image/x-icon">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* Para os botões nos cards de bebidas */
-        .drink-card .add-to-cart {
-            padding: 8px 12px;
-            font-size: 0.85rem;
-            border-radius: 4px;
-        }
-        
-        /* Seção de Bebidas */
-        .drink-category {
-            margin: 50px 0 30px;
-        }
-        
-        .drink-category-title {
-            font-family: 'Bungee', cursive;
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        
-        .drink-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .drink-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border-left: 5px solid var(--primary);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .drink-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .drink-info {
-            flex: 1;
-        }
-        
-        .drink-name {
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-        
-        .drink-details {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .drink-price {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-left: 15px;
-        }
-        
-        /* Carrinho de Compras */
-        .cart-icon {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background-color: var(--primary);
-            color: white;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .cart-icon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        
-        .cart-icon i {
-            font-size: 1.5rem;
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--warning);
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.9rem;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 400px;
-            height: 100%;
-            background-color: white;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
-            transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            z-index: 999;
-            padding: 25px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .cart-sidebar.open {
-            right: 0;
-        }
-        
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .cart-title {
-            font-family: 'Bungee', cursive;
-            font-size: 1.8rem;
-            color: var(--dark);
-            margin: 0;
-        }
-        
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--dark);
-            transition: transform 0.2s;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .close-cart:hover {
-            transform: rotate(90deg);
-            background-color: #f5f5f5;
-        }
-        
-        .cart-items {
-            flex: 1;
-            margin-bottom: 20px;
-            overflow-y: auto;
-        }
-        
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
-        }
-        
-        .cart-item:hover {
-            background-color: #fafafa;
-        }
-        
-        .cart-item-info {
-            flex: 1;
-            margin-right: 15px;
-        }
-        
-        .cart-item-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--dark);
-        }
-        
-        .cart-item-price {
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1rem;
-        }
-        
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .cart-item-quantity {
-            background-color: #f0f0f0;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-        
-        .cart-item-quantity:hover {
-            background-color: #e0e0e0;
-        }
-        
-        .cart-item-quantity-value {
-            min-width: 20px;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .cart-item-remove {
-            background: none;
-            border: none;
-            color: #ff5252;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: transform 0.2s;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .cart-item-remove:hover {
-            transform: scale(1.1);
-            background-color: #ffeeee;
-        }
-        
-        .cart-footer {
-            border-top: 2px solid #f0f0f0;
-            padding-top: 20px;
-        }
-        
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-        }
-        
-        .cart-total-label {
-            color: var(--dark);
-        }
-        
-        .cart-total-value {
-            color: var(--primary);
-            font-size: 1.4rem;
-        }
-        
-        .checkout-btn {
-            width: 100%;
-            padding: 16px;
-            background-color: var(--success);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 10px rgba(34, 146, 81, 0.3);
-        }
-        
-        .checkout-btn:hover {
-            background-color: #1e8449;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(34, 146, 81, 0.4);
-        }
-        
-        .checkout-btn:active {
-            transform: translateY(0);
-        }
-        
-        .empty-cart {
-            text-align: center;
-            padding: 40px 0;
-        }
-        
-        .empty-cart-icon {
-            font-size: 3rem;
-            color: #ddd;
-            margin-bottom: 15px;
-        }
-        
-        .empty-cart-message {
-            color: #888;
-            font-size: 1.1rem;
-        }
-        
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 998;
-            display: none;
-        }
-        
-        .overlay.active {
-            display: block;
-        }
-        
-        /* Alertas */
-        .alert {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 15px 25px;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            z-index: 1100;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        
-        .alert.show {
-            opacity: 1;
-        }
-        
-        .alert-warning {
-            background-color: var(--warning);
-        }
-        
-        /* Footer Estilizado */
-        footer {
-            background-color: var(--dark);
-            color: var(--light);
-            padding: 60px 0 20px;
-            margin-top: 40px;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
+    header {
+      background-color: #68331a;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-        .footer-logo {
-            font-family: 'Bungee', cursive;
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
 
-        .footer-about {
-            color: #bbb;
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
+    nav {
+      display: flex;
+      gap: 20px;
+      font-size: 1.1rem;
+      align-items: center;
+    }
 
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      background-color: #5f301b;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
 
-        .social-links a, 
-        .social-links button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.1);
-            color: var(--light);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
+    nav a:hover {
+      background-color: #6e492b;
+    }
 
-        .social-links a:hover, 
-        .social-links button:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-        }
+    #loginIcon {
+      cursor: pointer;
+      font-size: 1.8rem;
+    }
 
-        .footer-title {
-            font-family: 'Bungee', cursive;
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    .search-container {
+      padding: 20px;
+      background-color: white;
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .footer-links {
-            list-style: none;
-        }
+    #searchInput {
+      width: 100%;
+      padding: 12px 20px;
+      border: 2px solid #ddd;
+      border-radius: 25px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
 
-        .footer-links li {
-            margin-bottom: 12px;
-            color: #bbb;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    #searchInput:focus {
+      border-color: #5f2f19;
+    }
 
-        .footer-links li i {
-            width: 20px;
-            text-align: center;
-        }
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
 
-        .footer-links li:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
+    .filter-btn {
+      padding: 8px 15px;
+      background-color: #f4f4f4;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #888;
-            font-size: 0.9rem;
-        }
-        
-        /* Responsivo */
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 3.5rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .cart-sidebar {
-                width: 350px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .btn {
-                padding: 12px 30px;
-                font-size: 1rem;
-            }
-            
-            .cart-sidebar {
-                width: 100%;
-                max-width: 100%;
-                right: -100%;
-            }
-            
-            .cart-sidebar.open {
-                right: 0;
-            }
-            
-            .cart-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-                top: 15px;
-                right: 15px;
-            }
-            
-            .menu-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .footer-title {
-                font-size: 1.2rem;
-                margin-bottom: 15px;
-            }
-            
-            .footer-logo {
-                font-size: 1.8rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .card-name {
-                font-size: 1.3rem;
-            }
-            
-            .card-price {
-                font-size: 1rem;
-                min-width: 70px;
-            }
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate {
-            animation: fadeIn 0.6s ease forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-    </style>
+    .filter-btn:hover, .filter-btn.active {
+      background-color: #8b3e1b;
+      color: white;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      color: #8b3e1b;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #555;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+
+    .card .price {
+      font-weight: bold;
+      color: #8b3e1b;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .quantity-control {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .quantity-control button {
+      background-color: #8b3e1b;
+      color: white;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quantity-control input {
+      width: 50px;
+      text-align: center;
+      margin: 0 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 5px;
+    }
+
+    .add-to-cart {
+      background-color: #8b3e1b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+
+    .add-to-cart:hover {
+      background-color: #a85c32;
+    }
+
+    /* Infobox */
+    .infobox {
+      background-color: #e1f5fe;
+      color: #814319;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      font-size: 1.2rem;
+      text-align: center;
+      display: none;
+    }
+
+    /* Modal do Carrinho */
+    #cartModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    #cartItems {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-item-info {
+      flex-grow: 1;
+    }
+
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .remove-item {
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #cartTotal {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 20px 0;
+      text-align: right;
+    }
+
+    #cartModal button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    #cartModal button:first-child {
+      background-color: #25D366;
+      color: white;
+    }
+
+    #cartModal button:last-child {
+      background-color: #ccc;
+    }
+
+    .cart-count {
+      background-color: #855b39;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 5px;
+    }
+
+    /* Formulário de Login/Cadastro */
+    #loginModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .form-container input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 350px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .form-container button {
+      background-color: #8b3e1b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 350px;
+      margin: 10px 0;
+    }
+
+    .form-container button:hover {
+      background-color: #a85c32;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-container input, .form-container button {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 40px;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    footer .footer-content {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 20px;
+    }
+
+    footer .footer-content a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+
+    footer .footer-content a:hover {
+      color: #f4a261;
+    }
+
+    footer .footer-bottom {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    /* Botão de Importação */
+    .import-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-left: 10px;
+      display: none;
+    }
+
+    .import-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Modal de Importação */
+    #importModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    #importModal h2 {
+      margin-bottom: 20px;
+      color: #8b3e1b;
+    }
+
+    #importModal label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    #importModal input[type="file"] {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    #importModal button {
+      background-color: #8b3e1b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    #importModal button:hover {
+      background-color: #a85c32;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <!-- Ícone do Carrinho -->
-    <div class="cart-icon" id="cartIcon">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count" id="cartCount">0</span>
+
+  <header>
+    <h1>Adega Pai D'égua</h1>
+    <nav>
+      <a href="#" onclick="mostrarCarrinho()">Carrinho <span id="cartCounter" class="cart-count">0</span></a>
+      <a href="#" onclick="showLoginModal()">Login</a>
+      <button id="importBtn" class="import-btn" onclick="showImportModal()">Importar Produtos</button>
+    </nav>
+  </header>
+
+  <!-- Infobox que mostra mensagens de sucesso/erro -->
+  <div class="infobox" id="infobox">
+    <p id="infoboxMessage"></p>
+  </div>
+
+  <!-- Barra de busca e filtros -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar produtos..." onkeyup="filterProducts()">
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterProducts('all')">Todos</button>
+      <button class="filter-btn" onclick="filterProducts('Vinho')">Vinhos</button>
+      <button class="filter-btn" onclick="filterProducts('Cerveja')">Cervejas</button>
+      <button class="filter-btn" onclick="filterProducts('Whisky')">Whiskies</button>
     </div>
-    
-    <!-- Sidebar do Carrinho -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3 class="cart-title">Seu Carrinho</h3>
-            <button class="close-cart" id="closeCart">&times;</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <div class="empty-cart">
-                <div class="empty-cart-icon">
-                    <i class="fas fa-shopping-basket"></i>
-                </div>
-                <p class="empty-cart-message">Seu carrinho está vazio</p>
-            </div>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span class="cart-total-label">Total:</span>
-                <span class="cart-total-value" id="cartTotal">R$ 0,00</span>
-            </div>
-            <button class="checkout-btn" id="checkoutBtn">
-                <i class="fas fa-whatsapp"></i> Finalizar Pedido
-            </button>
-        </div>
+  </div>
+
+  <div class="container" id="productsContainer">
+    <!-- Os produtos serão carregados dinamicamente via JavaScript -->
+  </div>
+
+  <!-- Modal do Carrinho -->
+  <div id="cartModal">
+    <h2>Meu Carrinho</h2>
+    <div id="cartItems"></div>
+    <div id="cartTotal">Total: R$ 0,00</div>
+    <button onclick="enviarCarrinhoWhatsApp()">Enviar via WhatsApp</button>
+    <button onclick="fecharCarrinho()">Fechar</button>
+  </div>
+
+  <!-- Modal de Login/Cadastro -->
+  <div id="loginModal">
+    <div class="form-container">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Usuário" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <button onclick="submitForm()">Entrar</button>
+      <button onclick="toggleForm()">Cadastrar</button>
     </div>
-    
-    <!-- Overlay para quando o carrinho estiver aberto -->
-    <div class="overlay" id="overlay"></div>
-    
-    <header>
-        <div class="header-content">
-            <h1 class="animate">Adega Pai D'égua</h1>
-            <p class="subtitle animate delay-1">Jardim Jaqueline, São Paulo - SP</p>
-            <a href="#bebidas" class="btn animate delay-2">Ver Cardápio</a>
-        </div>
-    </header>
-    
-    <main class="container">
-        <!-- Seção de Bebidas -->
-        <section id="bebidas">
-            <h2 class="section-title animate">Bebidas</h2>
-            
-            <div class="drink-category">
-                <h3 class="drink-category-title">Doses</h3>
-                <div class="drink-grid">
-                    <div class="drink-card animate delay-1">
-                        <div class="drink-info">
-                            <div class="drink-name">Copo de 10</div>
-                            <div class="drink-details">Vodka, Whisky, Gin ou Cachaça, Energetico e Gelo</div>
-                        </div>
-                        <div class="drink-price">R$ 10,00</div>
-                        <button class="add-to-cart" data-name="Copo de 10" data-price="10.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-2">
-                        <div class="drink-info">
-                            <div class="drink-name">Copo de 12</div>
-                            <div class="drink-details">Dose maior de destilados, Energetico e Gelo</div>
-                        </div>
-                        <div class="drink-price">R$ 12,00</div>
-                        <button class="add-to-cart" data-name="Copo de 12" data-price="12.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-3">
-                        <div class="drink-info">
-                            <div class="drink-name">Baldão</div>
-                            <div class="drink-details">Dose generosa para compartilhar</div>
-                        </div>
-                        <div class="drink-price">R$ 30,00</div>
-                        <button class="add-to-cart" data-name="Baldão" data-price="30.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-4">
-                        <div class="drink-info">
-                            <div class="drink-name">Dose Premium</div>
-                            <div class="drink-details">Johnnie Walker, Absolut, Malibu, Energetico e Gelo</div>
-                        </div>
-                        <div class="drink-price">R$ 25,00</div>
-                        <button class="add-to-cart" data-name="Dose Premium" data-price="25.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="drink-category">
-                <h3 class="drink-category-title">Cervejas</h3>
-                <div class="drink-grid">
-                    <div class="drink-card animate delay-1">
-                        <div class="drink-info">
-                            <div class="drink-name">Skol/Original</div>
-                            <div class="drink-details">Lata 350ml</div>
-                        </div>
-                        <div class="drink-price">R$ 8,00</div>
-                        <button class="add-to-cart" data-name="Skol/Original (Lata 350ml)" data-price="8.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-2">
-                        <div class="drink-info">
-                            <div class="drink-name">Brahma</div>
-                            <div class="drink-details">Lata 350ml ou Garrafa 600ml</div>
-                        </div>
-                        <div class="drink-price">R$ 8-15</div>
-                        <div style="display: flex; gap: 10px;">
-                            <button class="add-to-cart" data-name="Brahma (Lata 350ml)" data-price="8.00" style="flex: 1;">
-                                <i class="fas fa-plus"></i> Lata
-                            </button>
-                            <button class="add-to-cart" data-name="Brahma (Garrafa 600ml)" data-price="15.00" style="flex: 1;">
-                                <i class="fas fa-plus"></i> Garrafa
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="drink-card animate delay-3">
-                        <div class="drink-info">
-                            <div class="drink-name">Heineken</div>
-                            <div class="drink-details">Long neck 330ml</div>
-                        </div>
-                        <div class="drink-price">R$ 10,00</div>
-                        <button class="add-to-cart" data-name="Heineken (Long neck 330ml)" data-price="10.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-4">
-                        <div class="drink-info">
-                            <div class="drink-name">Amstel</div>
-                            <div class="drink-details">Long neck 330ml</div>
-                        </div>
-                        <div class="drink-price">R$ 12,00</div>
-                        <button class="add-to-cart" data-name="Amstel (Long neck 330ml)" data-price="12.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-1">
-                        <div class="drink-info">
-                            <div class="drink-name">Corona</div>
-                            <div class="drink-details">Garrafa 600ml</div>
-                        </div>
-                        <div class="drink-price">R$ 18,00</div>
-                        <button class="add-to-cart" data-name="Corona (Garrafa 600ml)" data-price="18.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-2">
-                        <div class="drink-info">
-                            <div class="drink-name">Budweiser</div>
-                            <div class="drink-details">Long neck 330ml</div>
-                        </div>
-                        <div class="drink-price">R$ 12,00</div>
-                        <button class="add-to-cart" data-name="Budweiser (Long neck 330ml)" data-price="12.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="drink-category">
-                <h3 class="drink-category-title">Drinks</h3>
-                <div class="drink-grid">
-                    <div class="drink-card animate delay-1">
-                        <div class="drink-info">
-                            <div class="drink-name">Caipirinha</div>
-                            <div class="drink-details">Limão, açúcar e cachaça</div>
-                        </div>
-                        <div class="drink-price">R$ 18,00</div>
-                        <button class="add-to-cart" data-name="Caipirinha" data-price="18.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-2">
-                        <div class="drink-info">
-                            <div class="drink-name">Negroni</div>
-                            <div class="drink-details">Gin, Campari e Vermute</div>
-                        </div>
-                        <div class="drink-price">R$ 25,00</div>
-                        <button class="add-to-cart" data-name="Negroni" data-price="25.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-3">
-                        <div class="drink-info">
-                            <div class="drink-name">Mojito</div>
-                            <div class="drink-details">Hortelã, limão, rum e soda</div>
-                        </div>
-                        <div class="drink-price">R$ 22,00</div>
-                        <button class="add-to-cart" data-name="Mojito" data-price="22.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                    
-                    <div class="drink-card animate delay-4">
-                        <div class="drink-info">
-                            <div class="drink-name">Aperol Spritz</div>
-                            <div class="drink-details">Aperol, prosecco e água com gás</div>
-                        </div>
-                        <div class="drink-price">R$ 28,00</div>
-                        <button class="add-to-cart" data-name="Aperol Spritz" data-price="28.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Seção de Garrafas -->
-        <section>
-            <h2 class="section-title animate">Garrafas</h2>
-            <div class="menu-grid">
-                <div class="menu-card animate delay-1">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.GzXY-Dzx78_xJcIgEWswpwHaDV?rs=1&pid=ImgDetMain');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Johnnie Walker</div>
-                            <div class="card-price">R$ 120,00</div>
-                        </div>
-                        <p class="card-description">Vermelho, Black, Gold e Blue</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Importado</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Johnnie Walker" data-price="120.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="menu-card animate delay-2">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.4l-mhIbLcspj3Ifl7rrpiwAAAA?w=147&h=187&c=7&r=0&o=5&pid=1.7');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Kariri</div>
-                            <div class="card-price">R$ 16,00</div>
-                        </div>
-                        <p class="card-description">Cachaça</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Nacional</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Kariri" data-price="16.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="menu-card animate delay-3">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.RSgf3_cr1C-OTHUu2WoA_gHaEK?rs=1&pid=ImgDetMain');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Jack Daniel's</div>
-                            <div class="card-price">R$ 120,00</div>
-                        </div>
-                        <p class="card-description">Original e Maçã verde</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Importado</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Jack Daniel's" data-price="120.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+  </div>
 
-        <!-- Seção de Cigarros -->
-        <section>
-            <h2 class="section-title animate">Cigarros</h2>
-            <div class="menu-grid">
-                <div class="menu-card animate delay-1">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.YlpKpP04QX6Z9Pu9hkL-VAHaHa?w=200&h=200&c=12&rs=1&p=0&o=6&pid=23.1');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Marlboro</div>
-                            <div class="card-price">R$ 15,00</div>
-                        </div>
-                        <p class="card-description">Vermelho, Gold ou Ice</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Importado</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Marlboro" data-price="15.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="menu-card animate delay-2">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.nox3WNX8VR2JKthOUkIk-wHaEO?rs=1&pid=ImgDetMain');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Chesterfield</div>
-                            <div class="card-price">R$ 16,00</div>
-                        </div>
-                        <p class="card-description">Azul ou Terras Brasileiras</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Nacional</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Chesterfield" data-price="16.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="menu-card animate delay-3">
-                    <div class="card-image" style="background-image: url('https://pluspng.com/logo-img/ro77rot6f8c-rothmans-logo-rothmans-logo-png-transparent-amp-svg-vector-freebie-supply.png');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Rothmans</div>
-                            <div class="card-price">R$ 12,00</div>
-                        </div>
-                        <p class="card-description">Vermelho ou Azul</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Nacional</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Rothmans" data-price="12.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Seção de Salgadinhos -->
-        <section>
-            <h2 class="section-title animate">Salgadinhos</h2>
-            <div class="menu-grid">
-                <div class="menu-card animate delay-1">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.edhRPKhrz0RSNRhAiPtGdgHaEK?rs=1&pid=ImgDetMain');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Doritos</div>
-                            <div class="card-price">R$ 5,00</div>
-                        </div>
-                        <p class="card-description">Doritos Original</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Salgadinho</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Doritos" data-price="5.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="menu-card animate delay-2">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OPHS.oVuKXJUVlcQazQ474C474?w=160&h=220&rs=1&o=5&pid=21.1');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Fofura</div>
-                            <div class="card-price">R$ 5,00</div>
-                        </div>
-                        <p class="card-description">Original, Cebola e Queijo</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Salgadinho</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Fofura" data-price="5.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="menu-card animate delay-3">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.O8T9iDwcWZp8YVMkUPpOdwHaHa?rs=1&pid=ImgDetMain');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Torcida</div>
-                            <div class="card-price">R$ 3,00</div>
-                        </div>
-                        <p class="card-description">Carne, queijo, Original ou mexicano</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Salgadinho</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Torcida" data-price="3.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- Modal de Importação -->
+  <div id="importModal">
+    <h2>Importar Produtos via Excel</h2>
+    <label for="excelFile">Selecione um arquivo Excel (.xlsx, .xls):</label>
+    <input type="file" id="excelFile" accept=".xlsx, .xls" />
+    <div class="modal-buttons">
+      <button onclick="importProducts()">Importar</button>
+      <button onclick="closeImportModal()">Cancelar</button>
+    </div>
+  </div>
 
-        <!-- Seção de Outros -->
-        <section>
-            <h2 class="section-title animate">Outros</h2>
-            <div class="menu-grid">
-                <div class="menu-card animate delay-1">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.kD5461xRM6Ipc9ENNxCTHAHaHa?rs=1&pid=ImgDetMain');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Bem Bolado</div>
-                            <div class="card-price">R$ 5,00</div>
-                        </div>
-                        <p class="card-description">Original</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Seda</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Bem Bolado" data-price="5.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="menu-card animate delay-2">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.hZaUY1HSMj4WxRGSMTfZEgHaHa?w=204&h=203&c=7&r=0&o=5&pid=1.7');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Trident</div>
-                            <div class="card-price">R$ 3,00</div>
-                        </div>
-                        <p class="card-description">Original, melancia e menta</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Chiclete</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Trident" data-price="3.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="menu-card animate delay-3">
-                    <div class="card-image" style="background-image: url('https://th.bing.com/th/id/OIP.O8T9iDwcWZp8YVMkUPpOdwHaHa?rs=1&pid=ImgDetMain');"></div>
-                    <div class="card-content">
-                        <div class="card-title">
-                            <div class="card-name">Torcida</div>
-                            <div class="card-price">R$ 3,00</div>
-                        </div>
-                        <p class="card-description">Carne, queijo, Original ou mexicano</p>
-                        <div class="card-tags">
-                            <span class="card-tag">Salgadinho</span>
-                        </div>
-                        <button class="add-to-cart" data-name="Torcida" data-price="3.00">
-                            <i class="fas fa-plus"></i> Adicionar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">Pai D'égua</div>
-                    <p class="footer-about">O melhor point da região com drinks incríveis, cervejas geladas e ótima música!</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <button id="whatsappBtn"><i class="fab fa-whatsapp"></i></button>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Horário</h3>
-                    <ul class="footer-links">
-                        <li><i class="far fa-clock"></i> Terça a Quinta: 11h30 - 23h</li>
-                        <li><i class="far fa-clock"></i> Sexta e Sábado: 12h30 - 02h</li>
-                        <li><i class="far fa-clock"></i> Domingo: 11h30 - 23h</li>
-                        <li><i class="far fa-clock"></i> Segunda: Fechado</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Contato</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> Rua Cariri Mirim, 72</li>
-                        <li>Jardim Jaqueline - SP</li>
-                        <li><i class="fas fa-phone"></i> (11) 91404-2925</li>
-                        <li><i class="fas fa-envelope"></i> contato@paidegua.com</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                &copy; 2025 Adega Pai D'égua. Todos os direitos reservados.
-            </div>
-        </div>
-    </footer>
+  <footer>
+    <div class="footer-content">
+      <a href="#">Sobre</a>
+      <a href="#">Contate-nos</a>
+      <a href="#">Termos e Condições</a>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Adega Pai D'égua. Todos os direitos reservados.
+    </div>
+  </footer>
 
-    <script>
-        // Carrinho de Compras - Versão Melhorada
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementos do DOM
-            const cartIcon = document.getElementById('cartIcon');
-            const cartSidebar = document.getElementById('cartSidebar');
-            const closeCart = document.getElementById('closeCart');
-            const overlay = document.getElementById('overlay');
-            const cartItems = document.getElementById('cartItems');
-            const cartCount = document.getElementById('cartCount');
-            const cartTotal = document.getElementById('cartTotal');
-            const checkoutBtn = document.getElementById('checkoutBtn');
-            const whatsappBtn = document.getElementById('whatsappBtn');
-            
-            // Carregar carrinho do localStorage ou inicializar vazio
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
-            // Event Listeners para abrir/fechar carrinho
-            cartIcon.addEventListener('click', toggleCart);
-            closeCart.addEventListener('click', toggleCart);
-            overlay.addEventListener('click', toggleCart);
-            
-            // Delegar eventos para os botões de adicionar ao carrinho
-            document.addEventListener('click', function(e) {
-                // Verificar se o clique foi em um botão de adicionar ao carrinho
-                if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
-                    const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
-                    addToCart(button);
-                }
-                
-                // Verificar se o clique foi em um botão de remover item
-                if (e.target.classList.contains('cart-item-remove') || e.target.closest('.cart-item-remove')) {
-                    const button = e.target.classList.contains('cart-item-remove') ? e.target : e.target.closest('.cart-item-remove');
-                    removeItem(button);
-                }
-                
-                // Verificar se o clique foi em um botão de diminuir quantidade
-                if (e.target.classList.contains('minus') || e.target.closest('.minus')) {
-                    const button = e.target.classList.contains('minus') ? e.target : e.target.closest('.minus');
-                    decreaseQuantity(button);
-                }
-                
-                // Verificar se o clique foi em um botão de aumentar quantidade
-                if (e.target.classList.contains('plus') || e.target.closest('.plus')) {
-                    const button = e.target.classList.contains('plus') ? e.target : e.target.closest('.plus');
-                    increaseQuantity(button);
-                }
-            });
-            
-            // Função para alternar a exibição do carrinho
-            function toggleCart() {
-                cartSidebar.classList.toggle('open');
-                overlay.classList.toggle('active');
-                document.body.style.overflow = cartSidebar.classList.contains('open') ? 'hidden' : 'auto';
-            }
-            
-            // Função para adicionar item ao carrinho (versão melhorada)
-            function addToCart(button) {
-                // Obter dados do produto
-                const name = button.getAttribute('data-name');
-                const price = parseFloat(button.getAttribute('data-price'));
-                
-                // Verificar se o item já está no carrinho
-                const existingItemIndex = cart.findIndex(item => item.name === name);
-                
-                if (existingItemIndex !== -1) {
-                    // Se o item já existe, aumentar a quantidade
-                    cart[existingItemIndex].quantity += 1;
-                } else {
-                    // Se não existe, adicionar novo item
-                    cart.push({
-                        name,
-                        price,
-                        quantity: 1
-                    });
-                }
-                
-                // Salvar no localStorage
-                localStorage.setItem('cart', JSON.stringify(cart));
-                
-                // Atualizar exibição do carrinho
-                updateCart();
-                
-                // Feedback visual melhorado
-                const icon = button.querySelector('i') || button;
-                const originalHTML = button.innerHTML;
-                
-                button.innerHTML = '<i class="fas fa-check"></i> Adicionado';
-                button.classList.add('added');
-                
-                setTimeout(() => {
-                    button.innerHTML = originalHTML;
-                    button.classList.remove('added');
-                }, 1500);
-                
-                // Animar o ícone do carrinho
-                animateCartIcon();
-            }
-            
-            // Função para animar o ícone do carrinho
-            function animateCartIcon() {
-                cartIcon.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    cartIcon.style.transform = 'scale(1)';
-                }, 300);
-            }
-            
-            // Função para atualizar a exibição do carrinho
-            function updateCart() {
-                // Limpar carrinho
-                cartItems.innerHTML = '';
-                
-                if (cart.length === 0) {
-                    // Mostrar mensagem de carrinho vazio
-                    cartItems.innerHTML = `
-                        <div class="empty-cart">
-                            <div class="empty-cart-icon">
-                                <i class="fas fa-shopping-basket"></i>
-                            </div>
-                            <p class="empty-cart-message">Seu carrinho está vazio</p>
-                        </div>
-                    `;
-                    cartCount.textContent = '0';
-                    cartTotal.textContent = 'R$ 0,00';
-                    return;
-                }
-                
-                // Adicionar itens ao carrinho
-                let total = 0;
-                let itemCount = 0;
-                
-                cart.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'cart-item';
-                    
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    itemCount += item.quantity;
-                    
-                    itemElement.innerHTML = `
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">R$ ${item.price.toFixed(2)} (un)</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="cart-item-quantity minus" data-index="${index}">-</button>
-                            <span class="cart-item-quantity-value">${item.quantity}</span>
-                            <button class="cart-item-quantity plus" data-index="${index}">+</button>
-                            <button class="cart-item-remove" data-index="${index}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    `;
-                    
-                    cartItems.appendChild(itemElement);
-                });
-                
-                // Atualizar contador e total
-                cartCount.textContent = itemCount;
-                cartTotal.textContent = `R$ ${total.toFixed(2)}`;
-            }
-            
-            // Função para diminuir quantidade de um item
-            function decreaseQuantity(button) {
-                const index = button.getAttribute('data-index');
-                if (cart[index].quantity > 1) {
-                    cart[index].quantity -= 1;
-                } else {
-                    // Se a quantidade for 1, remover o item
-                    cart.splice(index, 1);
-                }
-                saveAndUpdateCart();
-            }
-            
-            // Função para aumentar quantidade de um item
-            function increaseQuantity(button) {
-                const index = button.getAttribute('data-index');
-                cart[index].quantity += 1;
-                saveAndUpdateCart();
-            }
-            
-            // Função para remover item do carrinho
-            function removeItem(button) {
-                const index = button.getAttribute('data-index');
-                cart.splice(index, 1);
-                saveAndUpdateCart();
-            }
-            
-            // Função para salvar e atualizar o carrinho
-            function saveAndUpdateCart() {
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCart();
-            }
-            
-            // Finalizar compra (enviar para WhatsApp)
-            checkoutBtn.addEventListener('click', () => {
-                if (cart.length === 0) {
-                    showAlert('Seu carrinho está vazio!', 'warning');
-                    return;
-                }
-                
-                // Formatar mensagem para WhatsApp
-                let message = '🚀 *Pedido da Adega Pai D\'égua* 🚀\n\n';
-                message += 'Olá, gostaria de fazer o seguinte pedido:\n\n';
-                
-                let total = 0;
-                
-                cart.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    message += `➡ ${item.quantity}x ${item.name} - R$ ${itemTotal.toFixed(2)}\n`;
-                    total += itemTotal;
-                });
-                
-                message += `\n💰 *Total: R$ ${total.toFixed(2)}*`;
-                message += '\n\n💬 *Observações:* \n[ALGUMAS INSTRUÇÕES ESPECIAIS?]';
-                
-                // Codificar a mensagem para URL
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappUrl = `https://wa.me/5511914042925?text=${encodedMessage}`;
-                
-                // Abrir WhatsApp
-                window.open(whatsappUrl, '_blank');
-            });
-            
-            // Botão WhatsApp do footer
-            whatsappBtn.addEventListener('click', () => {
-                const message = 'Olá, gostaria de mais informações sobre a Adega Pai D\'égua!';
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappUrl = `https://wa.me/5511914042925?text=${encodedMessage}`;
-                window.open(whatsappUrl, '_blank');
-            });
-            
-            // Mostrar alerta estilizado
-            function showAlert(message, type = 'warning') {
-                const alert = document.createElement('div');
-                alert.className = `alert alert-${type}`;
-                alert.textContent = message;
-                document.body.appendChild(alert);
-                
-                setTimeout(() => {
-                    alert.classList.add('show');
-                }, 10);
-                
-                setTimeout(() => {
-                    alert.classList.remove('show');
-                    setTimeout(() => {
-                        document.body.removeChild(alert);
-                    }, 300);
-                }, 3000);
-            }
-            
-            // Atualizar carrinho ao carregar a página
-            updateCart();
+  <script>
+    // Dados dos produtos
+    let produtos = [
+      { id: 1, nome: "Vinho Tinto Reservado", categoria: "Vinho", descricao: "Aromático e encorpado, ideal para carnes vermelhas.", preco: 89.90, imagem: "https://via.placeholder.com/300x200?text=Vinho+Tinto" },
+      { id: 2, nome: "Vinho Branco Seco", categoria: "Vinho", descricao: "Refrescante e leve, perfeito para dias quentes e peixes.", preco: 65.50, imagem: "https://via.placeholder.com/300x200?text=Vinho+Branco" },
+      { id: 3, nome: "Vinho Rosé", categoria: "Vinho", descricao: "Delicado e frutado, ótimo para aperitivos.", preco: 55.00, imagem: "https://via.placeholder.com/300x200?text=Vinho+Ros%C3%A9" },
+      { id: 4, nome: "Cerveja Puro Malte", categoria: "Cerveja", descricao: "Sabor intenso, ideal para momentos especiais.", preco: 12.90, imagem: "https://via.placeholder.com/300x200?text=Cerveja+Malte" },
+      { id: 5, nome: "Cerveja Artesanal IPA", categoria: "Cerveja", descricao: "Amarga e aromática, com notas cítricas.", preco: 18.50, imagem: "https://via.placeholder.com/300x200?text=Cerveja+IPA" },
+      { id: 6, nome: "Whisky Escocês 12 anos", categoria: "Whisky", descricao: "Equilibrado e sofisticado, com notas de carvalho.", preco: 199.90, imagem: "https://via.placeholder.com/300x200?text=Whisky+12+anos" },
+      { id: 7, nome: "Whisky Irlandês", categoria: "Whisky", descricao: "Suave e aromático, com toques de mel.", preco: 159.00, imagem: "https://via.placeholder.com/300x200?text=Whisky+Irland%C3%AAs" }
+    ];
+
+    let carrinho = [];
+    let isLogin = true;
+    let isAdmin = false;
+    let nextProductId = 8; // Para novos produtos importados
+
+    // Carrega os produtos quando a página é carregada
+    document.addEventListener('DOMContentLoaded', function() {
+      renderProducts(produtos);
+      updateCartCounter();
+      
+      // Verifica se há um admin logado no localStorage
+      const loggedAdmin = localStorage.getItem('isAdminLogged');
+      if (loggedAdmin === 'true') {
+        isAdmin = true;
+        document.getElementById('importBtn').style.display = 'block';
+      }
+    });
+
+    // Renderiza os produtos na página
+    function renderProducts(products) {
+      const container = document.getElementById('productsContainer');
+      container.innerHTML = '';
+      
+      if (products.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Nenhum produto encontrado.</p>';
+        return;
+      }
+      
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${product.imagem}" alt="${product.nome}">
+          <h3>${product.nome}</h3>
+          <p>${product.descricao}</p>
+          <div class="price">R$ ${product.preco.toFixed(2)}</div>
+          <div class="quantity-control">
+            <button onclick="changeQuantity(${product.id}, -1)">-</button>
+            <input type="number" id="qty-${product.id}" value="1" min="1" onchange="validateQuantity(${product.id})">
+            <button onclick="changeQuantity(${product.id}, 1)">+</button>
+          </div>
+          <button class="add-to-cart" onclick="adicionarAoCarrinho(${product.id})">Adicionar ao Carrinho</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Filtra os produtos por categoria ou busca
+    function filterProducts(category = 'all') {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      // Atualiza botões de filtro ativos
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if ((category === 'all' && btn.textContent === 'Todos') || 
+            (category === 'Vinho' && btn.textContent === 'Vinhos') ||
+            (category === 'Cerveja' && btn.textContent === 'Cervejas') ||
+            (category === 'Whisky' && btn.textContent === 'Whiskies')) {
+          btn.classList.add('active');
+        }
+      });
+      
+      let filteredProducts = produtos;
+      
+      // Filtra por categoria se não for 'all'
+      if (category !== 'all') {
+        filteredProducts = filteredProducts.filter(p => p.categoria === category);
+      }
+      
+      // Filtra por termo de busca se houver
+      if (searchTerm) {
+        filteredProducts = filteredProducts.filter(p => 
+          p.nome.toLowerCase().includes(searchTerm) || 
+          p.descricao.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      renderProducts(filteredProducts);
+    }
+
+    // Valida a quantidade inserida manualmente
+    function validateQuantity(productId) {
+      const input = document.getElementById(`qty-${productId}`);
+      if (input.value < 1) input.value = 1;
+    }
+
+    // Altera a quantidade do produto
+    function changeQuantity(productId, change) {
+      const input = document.getElementById(`qty-${productId}`);
+      let newValue = parseInt(input.value) + change;
+      if (newValue < 1) newValue = 1;
+      input.value = newValue;
+    }
+
+    // Adiciona produto ao carrinho
+    function adicionarAoCarrinho(productId) {
+      const product = produtos.find(p => p.id === productId);
+      const quantity = parseInt(document.getElementById(`qty-${productId}`).value);
+      
+      // Verifica se o produto já está no carrinho
+      const existingItem = carrinho.find(item => item.id === productId);
+      
+      if (existingItem) {
+        existingItem.quantity += quantity;
+      } else {
+        carrinho.push({
+          id: product.id,
+          nome: product.nome,
+          preco: product.preco,
+          quantity: quantity
         });
-    </script>
+      }
+      
+      showInfobox(`${quantity} ${product.nome} adicionado(s) ao carrinho!`);
+      updateCartCounter();
+    }
+
+    // Remove item do carrinho
+    function removeFromCart(productId) {
+      carrinho = carrinho.filter(item => item.id !== productId);
+      mostrarCarrinho();
+      updateCartCounter();
+      showInfobox("Item removido do carrinho");
+    }
+
+    // Atualiza o contador do carrinho
+    function updateCartCounter() {
+      const totalItems = carrinho.reduce((total, item) => total + item.quantity, 0);
+      document.getElementById('cartCounter').textContent = totalItems;
+    }
+
+    // Mostra o carrinho
+    function mostrarCarrinho() {
+      const cartModal = document.getElementById('cartModal');
+      const cartItems = document.getElementById('cartItems');
+      cartItems.innerHTML = "";
+
+      if (carrinho.length === 0) {
+        cartItems.innerHTML = "<p>O carrinho está vazio.</p>";
+        document.getElementById('cartTotal').textContent = "Total: R$ 0,00";
+      } else {
+        let total = 0;
+        
+        carrinho.forEach((item, index) => {
+          const itemTotal = item.preco * item.quantity;
+          total += itemTotal;
+          
+          const div = document.createElement('div');
+          div.className = 'cart-item';
+          div.innerHTML = `
+            <div class="cart-item-info">
+              <strong>${index + 1}. ${item.nome}</strong><br>
+              ${item.quantity} x R$ ${item.preco.toFixed(2)} = R$ ${itemTotal.toFixed(2)}
+            </div>
+            <div class="cart-item-actions">
+              <button onclick="changeCartQuantity(${item.id}, -1)">-</button>
+              <span>${item.quantity}</span>
+              <button onclick="changeCartQuantity(${item.id}, 1)">+</button>
+              <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
+            </div>
+          `;
+          cartItems.appendChild(div);
+        });
+        
+        document.getElementById('cartTotal').textContent = `Total: R$ ${total.toFixed(2)}`;
+      }
+
+      cartModal.style.display = "block";
+    }
+
+    // Altera quantidade no carrinho
+    function changeCartQuantity(productId, change) {
+      const item = carrinho.find(item => item.id === productId);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity < 1) {
+          removeFromCart(productId);
+        } else {
+          mostrarCarrinho();
+          updateCartCounter();
+        }
+      }
+    }
+
+    // Função para abrir e fechar o modal de login
+    function showLoginModal() {
+      const loginModal = document.getElementById('loginModal');
+      if (loginModal.style.display === 'block') {
+        loginModal.style.display = 'none';
+      } else {
+        loginModal.style.display = 'block';
+      }
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+
+    function toggleForm() {
+      isLogin = !isLogin;
+      document.querySelector('#loginModal h2').textContent = isLogin ? 'Login' : 'Cadastro';
+      document.querySelectorAll('.form-container button')[0].textContent = isLogin ? 'Entrar' : 'Cadastrar';
+    }
+
+    function submitForm() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!username || !password) return alert('Preencha todos os campos.');
+
+      let users = JSON.parse(localStorage.getItem('usuarios') || '{}');
+
+      if (isLogin) {
+        if (username === 'admin' && password === '1213') {
+          isAdmin = true;
+          localStorage.setItem('isAdminLogged', 'true');
+          document.getElementById('importBtn').style.display = 'block';
+          showInfobox('Login de administrador bem-sucedido!');
+          closeLoginModal();
+        } else if (users[username] && users[username].senha === password) {
+          showInfobox('Login bem-sucedido!');
+          closeLoginModal();
+        } else {
+          showInfobox('Usuário ou senha inválidos.');
+        }
+      } else {
+        if (users[username]) {
+          showInfobox('Usuário já existe!');
+        } else {
+          users[username] = { senha: password };
+          localStorage.setItem('usuarios', JSON.stringify(users));
+          showInfobox('Cadastro realizado com sucesso!');
+          toggleForm();
+        }
+      }
+    }
+
+    // Função para mostrar a infobox
+    function showInfobox(message) {
+      const infobox = document.getElementById('infobox');
+      const infoboxMessage = document.getElementById('infoboxMessage');
+      infoboxMessage.textContent = message;
+      infobox.style.display = 'block';
+      setTimeout(() => {
+        infobox.style.display = 'none';
+      }, 3000);
+    }
+
+    // Enviar carrinho para o WhatsApp
+    function enviarCarrinhoWhatsApp() {
+      if (carrinho.length === 0) {
+        showInfobox("O carrinho está vazio!");
+        return;
+      }
+      
+      let mensagem = "Olá, gostaria de fazer um pedido:\n\n";
+      let total = 0;
+      
+      carrinho.forEach(item => {
+        const itemTotal = item.preco * item.quantity;
+        total += itemTotal;
+        mensagem += `- ${item.nome}: ${item.quantity} x R$ ${item.preco.toFixed(2)} = R$ ${itemTotal.toFixed(2)}\n`;
+      });
+      
+      mensagem += `\nTotal: R$ ${total.toFixed(2)}`;
+      
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // Fechar modal do carrinho
+    function fecharCarrinho() {
+      document.getElementById('cartModal').style.display = 'none';
+    }
+
+    // Mostrar modal de importação
+    function showImportModal() {
+      if (!isAdmin) {
+        showInfobox('Acesso negado. Somente administradores podem importar produtos.');
+        return;
+      }
+      document.getElementById('importModal').style.display = 'block';
+    }
+
+    // Fechar modal de importação
+    function closeImportModal() {
+      document.getElementById('importModal').style.display = 'none';
+    }
+
+    // Importar produtos do Excel
+    function importProducts() {
+      const fileInput = document.getElementById('excelFile');
+      const file = fileInput.files[0];
+      
+      if (!file) {
+        showInfobox('Por favor, selecione um arquivo Excel.');
+        return;
+      }
+      
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          
+          // Assume que a primeira planilha contém os dados
+          const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+          const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+          
+          if (jsonData.length === 0) {
+            showInfobox('O arquivo Excel não contém dados válidos.');
+            return;
+          }
+          
+          // Processa os dados importados
+          const newProducts = jsonData.map(row => {
+            // Verifica se os campos obrigatórios existem
+            if (!row.nome || !row.categoria || !row.preco) {
+              return null;
+            }
+            
+            return {
+              id: nextProductId++,
+              nome: row.nome,
+              categoria: row.categoria,
+              descricao: row.descricao || 'Descrição não disponível',
+              preco: parseFloat(row.preco) || 0,
+              imagem: row.imagem || 'https://via.placeholder.com/300x200?text=Produto+Sem+Imagem'
+            };
+          }).filter(product => product !== null);
+          
+          if (newProducts.length === 0) {
+            showInfobox('Nenhum produto válido encontrado no arquivo.');
+            return;
+          }
+          
+          // Adiciona os novos produtos à lista existente
+          produtos = [...produtos, ...newProducts];
+          renderProducts(produtos);
+          closeImportModal();
+          showInfobox(`${newProducts.length} produtos importados com sucesso!`);
+          
+        } catch (error) {
+          console.error('Erro ao importar produtos:', error);
+          showInfobox('Erro ao processar o arquivo Excel. Verifique o formato.');
+        }
+      };
+      
+      reader.onerror = function() {
+        showInfobox('Erro ao ler o arquivo. Tente novamente.');
+      };
+      
+      reader.readAsArrayBuffer(file);
+    }
+  </script>
 </body>
 </html>
