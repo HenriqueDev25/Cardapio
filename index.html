@@ -473,7 +473,7 @@
     <h1>Adega Pai D'égua</h1>
     <nav>
       <a href="#" onclick="mostrarCarrinho()">Carrinho <span id="cartCounter" class="cart-count">0</span></a>
-      <a href="#" onclick="showLoginModal()">Login</a>
+      <a href="#" id="loginLink" onclick="showLoginModal()">Login</a>
       <button id="importBtn" class="import-btn" onclick="showImportModal()">Importar Produtos</button>
     </nav>
   </header>
@@ -491,6 +491,12 @@
       <button class="filter-btn" onclick="filterProducts('Vinho')">Vinhos</button>
       <button class="filter-btn" onclick="filterProducts('Cerveja')">Cervejas</button>
       <button class="filter-btn" onclick="filterProducts('Whisky')">Whiskies</button>
+      <button class="filter-btn" onclick="filterProducts('Energeticos')">Energeticos</button>
+      <button class="filter-btn" onclick="filterProducts('Cachaças')">Cachaças</button>
+      <button class="filter-btn" onclick="filterProducts('Aguas')">Aguas</button>
+      <button class="filter-btn" onclick="filterProducts('Salgadinho/doce')">Salgadinho/doce</button>
+      <button class="filter-btn" onclick="filterProducts('Tabacaria')">Tabacaria</button>
+      <button class="filter-btn" onclick="filterProducts('doses')">doses</button>
     </div>
   </div>
 
@@ -543,18 +549,14 @@
   <script>
     // Dados dos produtos
     let produtos = [
-      { id: 1, nome: "Vinho Tinto Reservado", categoria: "Vinho", descricao: "Aromático e encorpado, ideal para carnes vermelhas.", preco: 89.90, imagem: "https://via.placeholder.com/300x200?text=Vinho+Tinto" },
-      { id: 2, nome: "Vinho Branco Seco", categoria: "Vinho", descricao: "Refrescante e leve, perfeito para dias quentes e peixes.", preco: 65.50, imagem: "https://via.placeholder.com/300x200?text=Vinho+Branco" },
-      { id: 3, nome: "Vinho Rosé", categoria: "Vinho", descricao: "Delicado e frutado, ótimo para aperitivos.", preco: 55.00, imagem: "https://via.placeholder.com/300x200?text=Vinho+Ros%C3%A9" },
-      { id: 4, nome: "Cerveja Puro Malte", categoria: "Cerveja", descricao: "Sabor intenso, ideal para momentos especiais.", preco: 12.90, imagem: "https://via.placeholder.com/300x200?text=Cerveja+Malte" },
-      { id: 5, nome: "Cerveja Artesanal IPA", categoria: "Cerveja", descricao: "Amarga e aromática, com notas cítricas.", preco: 18.50, imagem: "https://via.placeholder.com/300x200?text=Cerveja+IPA" },
-      { id: 6, nome: "Whisky Escocês 12 anos", categoria: "Whisky", descricao: "Equilibrado e sofisticado, com notas de carvalho.", preco: 199.90, imagem: "https://via.placeholder.com/300x200?text=Whisky+12+anos" },
-      { id: 7, nome: "Whisky Irlandês", categoria: "Whisky", descricao: "Suave e aromático, com toques de mel.", preco: 159.00, imagem: "https://via.placeholder.com/300x200?text=Whisky+Irland%C3%AAs" }
+      { id: 1, nome: "Vinho Branco Seco", categoria: "Vinho", descricao: "Refrescante e leve, perfeito para dias quentes e peixes.", preco: 65.50, imagem: "https://via.placeholder.com/300x200?text=Vinho+Branco" },
+     
     ];
 
     let carrinho = [];
     let isLogin = true;
     let isAdmin = false;
+    let currentUser = null;
     let nextProductId = 8; // Para novos produtos importados
 
     // Carrega os produtos quando a página é carregada
@@ -562,13 +564,42 @@
       renderProducts(produtos);
       updateCartCounter();
       
-      // Verifica se há um admin logado no localStorage
-      const loggedAdmin = localStorage.getItem('isAdminLogged');
-      if (loggedAdmin === 'true') {
-        isAdmin = true;
-        document.getElementById('importBtn').style.display = 'block';
+      // Verifica se há um usuário logado no localStorage
+      const loggedUser = localStorage.getItem('currentUser');
+      if (loggedUser) {
+        currentUser = loggedUser;
+        updateLoginUI();
+        
+        // Verifica se é admin
+        if (currentUser === 'admin') {
+          isAdmin = true;
+          document.getElementById('importBtn').style.display = 'block';
+        }
       }
     });
+
+    // Atualiza a interface do usuário logado
+    function updateLoginUI() {
+      const loginLink = document.getElementById('loginLink');
+      if (currentUser) {
+        loginLink.textContent = 'Logout';
+        loginLink.onclick = logout;
+      } else {
+        loginLink.textContent = 'Login';
+        loginLink.onclick = showLoginModal;
+      }
+    }
+
+    // Função de logout
+    function logout() {
+      currentUser = null;
+      isAdmin = false;
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('isAdminLogged');
+      document.getElementById('importBtn').style.display = 'none';
+      updateLoginUI();
+      showInfobox('Logout realizado com sucesso!');
+    }
 
     // Renderiza os produtos na página
     function renderProducts(products) {
@@ -767,13 +798,19 @@
       if (isLogin) {
         if (username === 'admin' && password === '1213') {
           isAdmin = true;
+          currentUser = 'admin';
+          localStorage.setItem('currentUser', currentUser);
           localStorage.setItem('isAdminLogged', 'true');
           document.getElementById('importBtn').style.display = 'block';
           showInfobox('Login de administrador bem-sucedido!');
           closeLoginModal();
+          updateLoginUI();
         } else if (users[username] && users[username].senha === password) {
+          currentUser = username;
+          localStorage.setItem('currentUser', currentUser);
           showInfobox('Login bem-sucedido!');
           closeLoginModal();
+          updateLoginUI();
         } else {
           showInfobox('Usuário ou senha inválidos.');
         }
