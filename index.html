@@ -549,11 +549,37 @@
   <script>
     // Dados dos produtos (carregados do localStorage ou inicializados)
     let produtos = JSON.parse(localStorage.getItem('produtosAdega')) || [
+      // Vinhos
       { id: 1, nome: "Vinho Branco Seco", categoria: "Vinho", descricao: "Refrescante e leve, perfeito para dias quentes e peixes.", preco: 65.50, imagem: "https://via.placeholder.com/300x200?text=Vinho+Branco" },
       { id: 2, nome: "Vinho Tinto Suave", categoria: "Vinho", descricao: "Cor intensa e sabor frutado, ideal para carnes vermelhas.", preco: 72.90, imagem: "https://via.placeholder.com/300x200?text=Vinho+Tinto" },
+      
+      // Cervejas
       { id: 3, nome: "Cerveja Artesanal IPA", categoria: "Cerveja", descricao: "Amarga e aromática, com notas cítricas e florais.", preco: 15.80, imagem: "https://via.placeholder.com/300x200?text=Cerveja+IPA" },
+      { id: 8, nome: "Itaipava Puro Malte", categoria: "Cerveja", descricao: "Cerveja puro malte, sabor suave e refrescante.", preco: 4.90, imagem: "https://via.placeholder.com/300x200?text=Itaipava" },
+      { id: 9, nome: "Império Puro Malte", categoria: "Cerveja", descricao: "Cerveja premium com ingredientes selecionados.", preco: 5.50, imagem: "https://via.placeholder.com/300x200?text=Imperio" },
+      { id: 10, nome: "Heineken Long Neck", categoria: "Cerveja", descricao: "Cerveja importada com sabor característico.", preco: 8.90, imagem: "https://via.placeholder.com/300x200?text=Heineken" },
+      { id: 11, nome: "Original Pilsen", categoria: "Cerveja", descricao: "Cerveja tradicional brasileira, sabor marcante.", preco: 5.20, imagem: "https://via.placeholder.com/300x200?text=Original" },
+      { id: 12, nome: "Amstel Lata", categoria: "Cerveja", descricao: "Cerveja puro malte com baixo amargor.", preco: 4.80, imagem: "https://via.placeholder.com/300x200?text=Amstel" },
+      { id: 13, nome: "Skol Lata", categoria: "Cerveja", descricao: "A cerveja mais vendida do Brasil, sabor leve.", preco: 4.50, imagem: "https://via.placeholder.com/300x200?text=Skol" },
+      { id: 14, nome: "Spaten Munich", categoria: "Cerveja", descricao: "Cerveja alemã tradicional, sabor encorpado.", preco: 12.90, imagem: "https://via.placeholder.com/300x200?text=Spaten" },
+      
+      // Whiskies
       { id: 4, nome: "Whisky 12 anos", categoria: "Whisky", descricao: "Envelhecido em barris de carvalho, com notas de baunilha e especiarias.", preco: 189.90, imagem: "https://via.placeholder.com/300x200?text=Whisky+12+anos" },
+      { id: 15, nome: "Jack Daniel's", categoria: "Whisky", descricao: "Whisky Tennessee, suave com notas de caramelo e madeira.", preco: 149.90, imagem: "https://via.placeholder.com/300x200?text=Jack+Daniels" },
+      { id: 16, nome: "Johnnie Walker Red Label", categoria: "Whisky", descricao: "Whisky escocês blend, sabor defumado e frutado.", preco: 129.90, imagem: "https://via.placeholder.com/300x200?text=Johnnie+Walker" },
+      { id: 17, nome: "Ballantine's Finest", categoria: "Whisky", descricao: "Whisky escocês blend com notas de mel e baunilha.", preco: 119.90, imagem: "https://via.placeholder.com/300x200?text=Ballantines" },
+      { id: 18, nome: "Chivas Regal 12 anos", categoria: "Whisky", descricao: "Whisky escocês premium, sabor rico e complexo.", preco: 229.90, imagem: "https://via.placeholder.com/300x200?text=Chivas+Regal" },
+      { id: 19, nome: "Jameson", categoria: "Whisky", descricao: "Whisky irlandês triplo destilado, suave e aromático.", preco: 159.90, imagem: "https://via.placeholder.com/300x200?text=Jameson" },
+      
+      // Energéticos
       { id: 5, nome: "Red Bull Energy Drink", categoria: "Energeticos", descricao: "Energético que aumenta a resistência e concentração.", preco: 9.50, imagem: "https://via.placeholder.com/300x200?text=Red+Bull" },
+      { id: 20, nome: "Monster Energy", categoria: "Energeticos", descricao: "Energético com alto teor de cafeína e taurina.", preco: 10.90, imagem: "https://via.placeholder.com/300x200?text=Monster" },
+      { id: 21, nome: "TNT Energy Drink", categoria: "Energeticos", descricao: "Energético brasileiro com sabor intenso.", preco: 7.50, imagem: "https://via.placeholder.com/300x200?text=TNT" },
+      { id: 22, nome: "Fusion Energy Drink", categoria: "Energeticos", descricao: "Energético com vitaminas e guaraná.", preco: 6.90, imagem: "https://via.placeholder.com/300x200?text=Fusion" },
+      { id: 23, nome: "Burn Energy Drink", categoria: "Energeticos", descricao: "Energético com sabor cítrico e estimulante.", preco: 8.50, imagem: "https://via.placeholder.com/300x200?text=Burn" },
+      { id: 24, nome: "Powerade Isotônico", categoria: "Energeticos", descricao: "Bebida isotônica para repor energias.", preco: 6.50, imagem: "https://via.placeholder.com/300x200?text=Powerade" },
+      
+      // Outros
       { id: 6, nome: "Cachaça Premium", categoria: "Cachaças", descricao: "Envelhecida em madeira nobre, sabor suave e aromático.", preco: 45.00, imagem: "https://via.placeholder.com/300x200?text=Cachaça+Premium" },
       { id: 7, nome: "Água Mineral 500ml", categoria: "Aguas", descricao: "Água mineral natural, garrafa de 500ml.", preco: 3.50, imagem: "https://via.placeholder.com/300x200?text=Água+Mineral" }
     ];
