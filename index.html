@@ -914,7 +914,7 @@
       document.getElementById('excelFile').value = '';
     }
 
-    // Importar produtos do Excel
+    // Importar produtos do Excel e salvar como JSON
     function importProducts() {
       const fileInput = document.getElementById('excelFile');
       const file = fileInput.files[0];
@@ -964,10 +964,31 @@
           
           // Adiciona os novos produtos à lista existente
           produtos = [...produtos, ...newProducts];
+          
+          // 1. Salva no localStorage (como já estava fazendo)
           salvarProdutosNoLocalStorage();
+          
+          // 2. Cria um blob JSON para download
+          const produtosJSON = JSON.stringify(produtos, null, 2);
+          const blob = new Blob([produtosJSON], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          
+          // 3. Cria link para download do JSON
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'produtos_adega.json';
+          document.body.appendChild(a);
+          a.click();
+          
+          // 4. Limpa
+          setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }, 100);
+          
           renderProducts(produtos);
           closeImportModal();
-          showInfobox(`${newProducts.length} produtos importados com sucesso!`);
+          showInfobox(`${newProducts.length} produtos importados e JSON gerado com sucesso!`);
           
         } catch (error) {
           console.error('Erro ao importar produtos:', error);
