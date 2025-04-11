@@ -50,6 +50,9 @@
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cervejas</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cervejas"></div>
 
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Caixas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="caixas"></div>
+
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Whisky</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="whiskys"></div>
 
@@ -58,6 +61,9 @@
 
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cachaças</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cachaças"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Refrigerantes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="refrigerantes"></div>
 
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Energeticos</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="energeticos"></div>
@@ -95,35 +101,48 @@
 
   <script>
     const cervejas = [
-      { nome: "Heineken", preco: 9.90, descricao: "lata e longneck", imagem: "https://th.bing.com/th/id/OIP.gLGHPrgQbovtQU4wXE6hYwHaHa?rs=1&pid=ImgDetMain" },
-      { nome: "Budweiser", preco: 13.90, descricao: "lata e caixa", imagem: "https://down-br.img.susercontent.com/file/6cf56f35c9005d4f45ced45db0c30edb" },
-      { nome: "Império", preco: 4.90, imagem: "https://tfchgi.vteximg.com.br/arquivos/ids/171586-1000-1000/7898915949209.jpg?v=637783886469700000" },
-      { nome: "Original", preco: 10.90, descricao: "lata e caixa", imagem: "https://coopsp.vtexassets.com/arquivos/ids/232285-800-800?v=638158831793470000&width=800&height=800&aspect=true" },
-      { nome: "Brahma Duplo Malte", preco: 5.90, descricao: "lata e caixa", imagem: "https://lelecodelivery.com.br/wp-content/uploads/2020/10/BRAHMA-DUPLO-MALTE-1024x1024.png" },
-      { nome: "Skol", preco: 3.90, descricao: "lata e caixa", imagem: "https://armazemseuluiz.com.br/storage/app/uploads/public/637/bc8/624/637bc8624b183689503712" },
-      { nome: "Petra", preco: 4.50, descricao: "lata e caixa", imagem: "https://www.imigrantesbebidas.com.br/bebida/images/products/full/88162-cerveja-petra-puro-malte-lata-269ml.jpg" },
-      { nome: "Estrella Galicia", preco: 4.50, imagem: "https://statics.angeloni.com.br/super/files/produtos/3999454/3999454_1_zoom.jpg" },
-      { nome: "Spaten", preco: 4.50, imagem: "https://th.bing.com/th/id/OIP.zr9UqRQG88fka5u9w8wa4QHaHa?rs=1&pid=ImgDetMain" },
+      { nome: "Heineken", preco: 5.00, descricao: "lata e longneck", imagem: "https://th.bing.com/th/id/OIP.gLGHPrgQbovtQU4wXE6hYwHaHa?rs=1&pid=ImgDetMain" },
+      { nome: "Budweiser", preco: 4.50, descricao: "lata", imagem: "https://down-br.img.susercontent.com/file/6cf56f35c9005d4f45ced45db0c30edb" },
+      { nome: "itaipava", preco: 3.50, descricao: "lata", imagem: "https://phygital-files.mercafacil.com/bom-lugar/uploads/produto/cerveja_itaipava_pilsen_lata_350ml_39322ea1-7219-4bea-9ab6-7056b2fb940b.jpg" },
+      { nome: "Império", preco: 4.00, imagem: "https://tfchgi.vteximg.com.br/arquivos/ids/171586-1000-1000/7898915949209.jpg?v=637783886469700000" },
+      { nome: "Original", preco: 4.50, descricao: "lata", imagem: "https://coopsp.vtexassets.com/arquivos/ids/232285-800-800?v=638158831793470000&width=800&height=800&aspect=true" },
+      { nome: "Brahma Duplo Malte", preco: 5.00, descricao: "lata", imagem: "https://lelecodelivery.com.br/wp-content/uploads/2020/10/BRAHMA-DUPLO-MALTE-1024x1024.png" },
+      { nome: "Skol", preco: 4.00, descricao: "lata", imagem: "https://armazemseuluiz.com.br/storage/app/uploads/public/637/bc8/624/637bc8624b183689503712" },
+      { nome: "Petra", preco: 3.50, descricao: "lata ", imagem: "https://www.imigrantesbebidas.com.br/bebida/images/products/full/88162-cerveja-petra-puro-malte-lata-269ml.jpg" },
+      { nome: "Estrella Galicia", preco: 9.00, descricao: "lata", imagem: "https://statics.angeloni.com.br/super/files/produtos/3999454/3999454_1_zoom.jpg" },
+      { nome: "Spaten", preco: 5.00, descricao: "lata", imagem: "https://th.bing.com/th/id/OIP.zr9UqRQG88fka5u9w8wa4QHaHa?rs=1&pid=ImgDetMain" },
+    ];
+
+    const Caixas = [
+      { nome: "Caixa Heineken", preco: 35.00, descricao: "lata e longneck", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-BpZjvyKcEQZqVhORefgHg7sPUUjcqNg_JQ&s" },
+      { nome: "Caixa Budweiser", preco: 32.00, descricao: "caixa", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbmMWVZa-NZ6I1FqbP0dcRJCuq1h-rDljUDQ&s" },
+      { nome: "Caixa Império", preco: 45.00, descricao: "caixa", imagem: "https://covabra.vtexassets.com/arquivos/ids/215103-800-450?v=638308159339330000&width=800&height=450&aspect=true" },
+      { nome: "Caixa Original", preco: 32.00, descricao: "caixa", imagem: "https://static.paodeacucar.com/img/uploads/1/133/23981133.jpg?im=Resize,width=200" },
+      { nome: "Caixa Brahma Duplo Malte", preco: 50.00, descricao: "caixa", imagem: "https://http2.mlstatic.com/D_Q_NP_981955-MLU71273938267_082023-O.webphttps://http2.mlstatic.com/D_Q_NP_981955-MLU71273938267_082023-O.webp" },
+      { nome: "Caixa Skol", preco: 45.00, descricao: "caixa", imagem: "https://trend-files-public-prod.s3.us-east-1.amazonaws.com/thumbs/840-0ace217d-55a6-437c-a8fb-b3980213435f.jpg" },
+      { nome: "Caixa Petra", preco: 35.00, descricao: "caixa", imagem: "https://down-br.img.susercontent.com/file/1ab035353f4e835d76425f4f8a7e7ec0" },
+      { nome: "Caixa itaipava",  descricao: "caixa", preco: 35.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRv0PGrZhHohVu1IcT3xXdbmGIvPFl0Enh0g&s" },
+      { nome: "Caixa Spaten", preco: 35.00, descricao: "0 estoque", imagem: "https://m.media-amazon.com/images/I/51Trhd2hgkL.jpg" },
     ];
 
     const whiskys = [
-      { nome: "Red Label", preco: 99.90, imagem: "https://i5.walmartimages.com/asr/70d063f5-8328-44b2-91ee-9eec40f5908c_2.53a1ae92e78bba8bafae76f4d204b660.jpeg" },
-      { nome: "Jack Daniel's", preco: 139.90, imagem: "https://imagevault.skulibrary.com/ColesLiquor/NoPrefix/e2520ee2b408c79be0916bdd062e372f1423c031/images/2400/id/CLG-8331431-1.jpg" },
-      { nome: "Jack Daniel's Fire", preco: 149.90, imagem: "https://cdn.myshoptet.com/usr/www.bumbaj.sk/user/shop/big/519_jack-daniel-s-fire-35--0-70-l.jpg?6362878e" },
+      { nome: "Red Label", preco: 110.00, imagem: "https://i5.walmartimages.com/asr/70d063f5-8328-44b2-91ee-9eec40f5908c_2.53a1ae92e78bba8bafae76f4d204b660.jpeg" },
+      { nome: "Jack Daniel's", preco: 170.00, imagem: "https://imagevault.skulibrary.com/ColesLiquor/NoPrefix/e2520ee2b408c79be0916bdd062e372f1423c031/images/2400/id/CLG-8331431-1.jpg" },
+      { nome: "Jack Daniel's Fire", preco: 170.00, imagem: "https://cdn.myshoptet.com/usr/www.bumbaj.sk/user/shop/big/519_jack-daniel-s-fire-35--0-70-l.jpg?6362878e" },
+      { nome: "Jack Daniel's Honey", preco: 130.00, imagem: "https://www.casadabebida.com.br/img/products/4277/000.webp" },
     ];
 
     const cachaças = [
-    { nome: "Kariri", preco: 99.90, imagem: "https://a-static.mlcdn.com.br/800x560/cachaca-kariri-com-k-ouro-960ml/lojamegaadegakanguru/58808/1a65b5b3a20645039770b3618c58abaf.jpeg" },
-    { nome: "51", preco: 139.90, imagem: "https://th.bing.com/th/id/OIP.fXxl1bXRfFe5mBvlfe8OHgHaHa?rs=1&pid=ImgDetMain" },
-    { nome: "Dreher", preco: 149.90, imagem: "https://th.bing.com/th/id/OIP.5VQoPaa8pU-60wwDUGYMpQHaKe?rs=1&pid=ImgDetMain" },
+    { nome: "Kariri", preco: 21.00, imagem: "https://a-static.mlcdn.com.br/800x560/cachaca-kariri-com-k-ouro-960ml/lojamegaadegakanguru/58808/1a65b5b3a20645039770b3618c58abaf.jpeg" },
+    { nome: "51", preco: 16.00, imagem: "https://th.bing.com/th/id/OIP.fXxl1bXRfFe5mBvlfe8OHgHaHa?rs=1&pid=ImgDetMain" },
+    { nome: "Dreher", preco: 23.00, imagem: "https://th.bing.com/th/id/OIP.5VQoPaa8pU-60wwDUGYMpQHaKe?rs=1&pid=ImgDetMain" },
   ];
 
   
   const energeticos = [
-    { nome: "Red Bull", preco: 9.90, descricao: "diversos sabores", imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/3401-energetico-red-bull-energy-drink-250ml.jpg?s=60f44e2e30f15d9fb0bee05c289d03a9" },
-    { nome: "Monster", preco: 12.90, descricao: "diversos sabores", imagem: "https://images.tcdn.com.br/img/img_prod/774261/energy_monster_lata_473ml_306_1_2081e6152f57ef62aa20d9698098229a.jpg" },
-    { nome: "Baly", preco: 7.90, descricao: "diversos sabores", imagem: "https://images.tcdn.com.br/img/img_prod/1091246/energetico_baly_maca_verde_2l_695_1_c7f8899cac7db5a7593faf51d0e3026c.jpg" },
-    { nome: "Vibe", preco: 6.90, descricao: "diversos sabores", imagem: "https://th.bing.com/th/id/OIP.6yO_wZZX3vwUdnj8JLQI_gHaHa?rs=1&pid=ImgDetMain" },
+    { nome: "Red Bull", preco: 10.00, descricao: "diversos sabores", imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/3401-energetico-red-bull-energy-drink-250ml.jpg?s=60f44e2e30f15d9fb0bee05c289d03a9" },
+    { nome: "Monster", preco: 12.00, descricao: "diversos sabores", imagem: "https://images.tcdn.com.br/img/img_prod/774261/energy_monster_lata_473ml_306_1_2081e6152f57ef62aa20d9698098229a.jpg" },
+    { nome: "Vibe", preco: 12.00, descricao: "diversos sabores", imagem: "https://th.bing.com/th/id/OIP.6yO_wZZX3vwUdnj8JLQI_gHaHa?rs=1&pid=ImgDetMain" },
  ];
 
     const gins = [
@@ -131,6 +150,16 @@
       { nome: "Eternity Maçã Verde", preco: 79.90, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161572/Gin-Eternity-Maca-Verde-900ml.jpg?v=638514742696530000  " },
       { nome: "Eternity Melancia", preco: 79.90, imagem: "https://th.bing.com/th/id/OIP.65UuUchhCVT8-w4ldjxCKAHaHa?rs=1&pid=ImgDetMain" },
       { nome: "Eternity Tropical", preco: 79.90, imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/19543-gin-eternity-tropical-fruits-900ml.20240626131948.jpg?p=product_regular&s=c715ec724cb701a0e7ef8517e5e62a34" },
+      { nome: "Eternity Pêssego e Framboesa", preco: 79.90, imagem: "https://a-static.mlcdn.com.br/1500x1500/gin-eternity-pessego-e-framboesa-900ml/royalbebidasonline/21572/84455031705a9ab383542caba1ee0128.jpeg" },
+    ];
+
+    const refrigerantes = [
+      { nome: "Coca 2l", preco: 12.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp4nTKaUjgSEYdCcIm7I8GwhcqQodqm0TM_Q&s" },
+      { nome: "Coca Lata", preco: 5.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvBzSgqGO---3GGcWKiNBRcxeNSlS-zXJcSQ&s" },
+      { nome: "Coca 200ml", preco: 3.00, imagem: "https://andinacocacola.vtexassets.com/arquivos/ids/158146/CCO-200ML--1000-x-1000-px-.jpg?v=638575081418230000" },
+      { nome: "Dolly Guaraná 2l", preco: 8.00, imagem: "https://imagens.jotaja.com/produtos/3d4e49ea-07cb-4b01-a139-e41bb6e54f54.jpg" },
+      { nome: "Dollynho Guaraná", preco: 3.00, imagem: "https://d3gdr9n5lqb5z7.cloudfront.net/fotos/1359.jpg" },
+      { nome: "Dollynho Limão", preco: 3.00, imagem: "https://d3gdr9n5lqb5z7.cloudfront.net/fotos/3077.jpg" },
     ];
 
     const contadorCarrinho = document.getElementById("contador-carrinho");
@@ -262,10 +291,314 @@
     }
 
     renderCategoria(cervejas, "cervejas");
+    renderCategoria(Caixas, "caixas");
     renderCategoria(whiskys, "whiskys");
+    renderCategoria(energeticos, "energeticos");
     renderCategoria(gins, "gins");
     renderCategoria(cachaças, "cachaças");
+    renderCategoria(refrigerantes, "refrigerantes");
+    atualizarContador();
+  </script>
+</body>
+  </html><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adega Pai D'égua</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #22c55e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-black text-white min-h-screen px-4 py-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-10">
+      <h1 class="text-4xl font-extrabold">Adega Pai D'égua</h1>
+      <button onclick="verCarrinho()" class="bg-yellow-400 text-black px-4 py-2 rounded-xl font-bold hover:bg-yellow-300 transition">
+        Carrinho (<span id="contador-carrinho">0</span>)
+      </button>
+    </div>
+
+    <div id="toast" class="toast">Item adicionado ao carrinho!</div>
+
+    <div>
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cervejas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cervejas"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Caixas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="caixas"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Whisky</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="whiskys"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Gin</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="gins"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cachaças</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cachaças"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Refrigerantes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="refrigerantes"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Energeticos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="energeticos"></div>
+    </div>
+  </div>
+
+  <!-- Modal do carrinho -->
+  <div id="modal-carrinho" class="fixed inset-0 bg-black/80 hidden z-40 flex items-center justify-center">
+    <div class="bg-white text-black p-6 rounded-xl w-full max-w-lg shadow-xl relative">
+      <h2 class="text-2xl font-bold mb-4">Seu Carrinho</h2>
+      <ul id="lista-carrinho" class="mb-4 space-y-2 max-h-60 overflow-y-auto"></ul>
+      <div class="flex justify-between items-center font-semibold text-lg mb-4">
+        <span>Total:</span>
+        <span id="total-carrinho">R$ 0,00</span>
+      </div>
+      <div class="flex gap-4">
+        <button onclick="abrirModalNome()" class="bg-yellow-500 w-full py-2 rounded-xl font-bold hover:bg-yellow-400">Finalizar Pedido</button>
+        <button onclick="limparCarrinho()" class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-400">Limpar</button>
+      </div>
+      <button onclick="fecharCarrinho()" class="absolute top-2 right-4 text-black font-bold text-xl">&times;</button>
+    </div>
+  </div>
+
+  <!-- Modal para pegar o nome -->
+  <div id="modal-nome" class="fixed inset-0 bg-black/80 hidden z-40 flex items-center justify-center">
+    <div class="bg-white text-black p-6 rounded-xl w-full max-w-lg shadow-xl">
+      <h2 class="text-2xl font-bold mb-4">Qual o seu nome?</h2>
+      <input id="nome-cliente" type="text" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Digite seu nome" />
+      <div class="flex gap-4 mt-6">
+        <button onclick="finalizarPedido()" class="bg-yellow-500 w-full py-2 rounded-xl font-bold hover:bg-yellow-400">Enviar para o WhatsApp</button>
+        <button onclick="fecharModalNome()" class="bg-red-500 w-full py-2 rounded-xl font-bold hover:bg-red-400">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cervejas = [
+      { nome: "Heineken", preco: 5.00, descricao: "lata e longneck", imagem: "https://th.bing.com/th/id/OIP.gLGHPrgQbovtQU4wXE6hYwHaHa?rs=1&pid=ImgDetMain" },
+      { nome: "Budweiser", preco: 4.50, descricao: "lata", imagem: "https://down-br.img.susercontent.com/file/6cf56f35c9005d4f45ced45db0c30edb" },
+      { nome: "itaipava", preco: 3.50, descricao: "lata", imagem: "https://phygital-files.mercafacil.com/bom-lugar/uploads/produto/cerveja_itaipava_pilsen_lata_350ml_39322ea1-7219-4bea-9ab6-7056b2fb940b.jpg" },
+      { nome: "Império", preco: 4.00, imagem: "https://tfchgi.vteximg.com.br/arquivos/ids/171586-1000-1000/7898915949209.jpg?v=637783886469700000" },
+      { nome: "Original", preco: 4.50, descricao: "lata", imagem: "https://coopsp.vtexassets.com/arquivos/ids/232285-800-800?v=638158831793470000&width=800&height=800&aspect=true" },
+      { nome: "Brahma Duplo Malte", preco: 5.00, descricao: "lata", imagem: "https://lelecodelivery.com.br/wp-content/uploads/2020/10/BRAHMA-DUPLO-MALTE-1024x1024.png" },
+      { nome: "Skol", preco: 4.00, descricao: "lata", imagem: "https://armazemseuluiz.com.br/storage/app/uploads/public/637/bc8/624/637bc8624b183689503712" },
+      { nome: "Petra", preco: 3.50, descricao: "lata ", imagem: "https://www.imigrantesbebidas.com.br/bebida/images/products/full/88162-cerveja-petra-puro-malte-lata-269ml.jpg" },
+      { nome: "Estrella Galicia", preco: 9.00, descricao: "lata", imagem: "https://statics.angeloni.com.br/super/files/produtos/3999454/3999454_1_zoom.jpg" },
+      { nome: "Spaten", preco: 5.00, descricao: "lata", imagem: "https://th.bing.com/th/id/OIP.zr9UqRQG88fka5u9w8wa4QHaHa?rs=1&pid=ImgDetMain" },
+    ];
+
+    const Caixas = [
+      { nome: "Caixa Heineken", preco: 35.00, descricao: "lata e longneck", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-BpZjvyKcEQZqVhORefgHg7sPUUjcqNg_JQ&s" },
+      { nome: "Caixa Budweiser", preco: 32.00, descricao: "caixa", imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbmMWVZa-NZ6I1FqbP0dcRJCuq1h-rDljUDQ&s" },
+      { nome: "Caixa Império", preco: 45.00, descricao: "caixa", imagem: "https://covabra.vtexassets.com/arquivos/ids/215103-800-450?v=638308159339330000&width=800&height=450&aspect=true" },
+      { nome: "Caixa Original", preco: 32.00, descricao: "caixa", imagem: "https://static.paodeacucar.com/img/uploads/1/133/23981133.jpg?im=Resize,width=200" },
+      { nome: "Caixa Brahma Duplo Malte", preco: 50.00, descricao: "caixa", imagem: "https://http2.mlstatic.com/D_Q_NP_981955-MLU71273938267_082023-O.webphttps://http2.mlstatic.com/D_Q_NP_981955-MLU71273938267_082023-O.webp" },
+      { nome: "Caixa Skol", preco: 45.00, descricao: "caixa", imagem: "https://trend-files-public-prod.s3.us-east-1.amazonaws.com/thumbs/840-0ace217d-55a6-437c-a8fb-b3980213435f.jpg" },
+      { nome: "Caixa Petra", preco: 35.00, descricao: "caixa", imagem: "https://down-br.img.susercontent.com/file/1ab035353f4e835d76425f4f8a7e7ec0" },
+      { nome: "Caixa itaipava",  descricao: "caixa", preco: 35.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRv0PGrZhHohVu1IcT3xXdbmGIvPFl0Enh0g&s" },
+      { nome: "Caixa Spaten", preco: 35.00, descricao: "0 estoque", imagem: "https://m.media-amazon.com/images/I/51Trhd2hgkL.jpg" },
+    ];
+
+    const whiskys = [
+      { nome: "Red Label", preco: 110.00, imagem: "https://i5.walmartimages.com/asr/70d063f5-8328-44b2-91ee-9eec40f5908c_2.53a1ae92e78bba8bafae76f4d204b660.jpeg" },
+      { nome: "Jack Daniel's", preco: 170.00, imagem: "https://imagevault.skulibrary.com/ColesLiquor/NoPrefix/e2520ee2b408c79be0916bdd062e372f1423c031/images/2400/id/CLG-8331431-1.jpg" },
+      { nome: "Jack Daniel's Fire", preco: 170.00, imagem: "https://cdn.myshoptet.com/usr/www.bumbaj.sk/user/shop/big/519_jack-daniel-s-fire-35--0-70-l.jpg?6362878e" },
+      { nome: "Jack Daniel's Honey", preco: 130.00, imagem: "https://www.casadabebida.com.br/img/products/4277/000.webp" },
+    ];
+
+    const cachaças = [
+    { nome: "Kariri", preco: 21.00, imagem: "https://a-static.mlcdn.com.br/800x560/cachaca-kariri-com-k-ouro-960ml/lojamegaadegakanguru/58808/1a65b5b3a20645039770b3618c58abaf.jpeg" },
+    { nome: "51", preco: 16.00, imagem: "https://th.bing.com/th/id/OIP.fXxl1bXRfFe5mBvlfe8OHgHaHa?rs=1&pid=ImgDetMain" },
+    { nome: "Dreher", preco: 23.00, imagem: "https://th.bing.com/th/id/OIP.5VQoPaa8pU-60wwDUGYMpQHaKe?rs=1&pid=ImgDetMain" },
+  ];
+
+  
+  const energeticos = [
+    { nome: "Red Bull", preco: 10.00, descricao: "diversos sabores", imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/3401-energetico-red-bull-energy-drink-250ml.jpg?s=60f44e2e30f15d9fb0bee05c289d03a9" },
+    { nome: "Monster", preco: 12.00, descricao: "diversos sabores", imagem: "https://images.tcdn.com.br/img/img_prod/774261/energy_monster_lata_473ml_306_1_2081e6152f57ef62aa20d9698098229a.jpg" },
+    { nome: "Vibe", preco: 12.00, descricao: "diversos sabores", imagem: "https://th.bing.com/th/id/OIP.6yO_wZZX3vwUdnj8JLQI_gHaHa?rs=1&pid=ImgDetMain" },
+ ];
+
+    const gins = [
+      { nome: "Eternity Morango", preco: 79.90, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161573/Gin-Eternity-Strawberry-900ml.jpg?v=638514746107800000" },
+      { nome: "Eternity Maçã Verde", preco: 79.90, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161572/Gin-Eternity-Maca-Verde-900ml.jpg?v=638514742696530000  " },
+      { nome: "Eternity Melancia", preco: 79.90, imagem: "https://th.bing.com/th/id/OIP.65UuUchhCVT8-w4ldjxCKAHaHa?rs=1&pid=ImgDetMain" },
+      { nome: "Eternity Tropical", preco: 79.90, imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/19543-gin-eternity-tropical-fruits-900ml.20240626131948.jpg?p=product_regular&s=c715ec724cb701a0e7ef8517e5e62a34" },
+      { nome: "Eternity Pêssego e Framboesa", preco: 79.90, imagem: "https://a-static.mlcdn.com.br/1500x1500/gin-eternity-pessego-e-framboesa-900ml/royalbebidasonline/21572/84455031705a9ab383542caba1ee0128.jpeg" },
+    ];
+
+    const refrigerantes = [
+      { nome: "Coca 2l", preco: 12.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp4nTKaUjgSEYdCcIm7I8GwhcqQodqm0TM_Q&s" },
+      { nome: "Coca Lata", preco: 5.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvBzSgqGO---3GGcWKiNBRcxeNSlS-zXJcSQ&s" },
+      { nome: "Coca 200ml", preco: 3.00, imagem: "https://andinacocacola.vtexassets.com/arquivos/ids/158146/CCO-200ML--1000-x-1000-px-.jpg?v=638575081418230000" },
+      { nome: "Dolly Guaraná 2l", preco: 8.00, imagem: "https://imagens.jotaja.com/produtos/3d4e49ea-07cb-4b01-a139-e41bb6e54f54.jpg" },
+      { nome: "Dollynho Guaraná", preco: 3.00, imagem: "https://d3gdr9n5lqb5z7.cloudfront.net/fotos/1359.jpg" },
+      { nome: "Dollynho Limão", preco: 3.00, imagem: "https://d3gdr9n5lqb5z7.cloudfront.net/fotos/3077.jpg" },
+    ];
+
+    const contadorCarrinho = document.getElementById("contador-carrinho");
+    const listaCarrinho = document.getElementById("lista-carrinho");
+    const totalCarrinho = document.getElementById("total-carrinho");
+    const modalCarrinho = document.getElementById("modal-carrinho");
+    const modalNome = document.getElementById("modal-nome");
+
+    const renderCategoria = (produtos, containerId) => {
+      const container = document.getElementById(containerId);
+      produtos.forEach((p, i) => {
+        container.innerHTML += `
+          <div class="glass p-6 rounded-2xl shadow-xl hover:scale-[1.02] transition-transform">
+            <img src="${p.imagem}" class="rounded-xl mb-4 w-full h-40 object-cover" alt="${p.nome}">
+            <h3 class="text-xl font-bold mb-2">${p.nome}</h3>
+            <p class="text-gray-300 mb-2">${p.descricao || "Produto gelado e pronto para você!"}</p>
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-semibold text-yellow-400">R$ ${p.preco.toFixed(2)}</span>
+              <button onclick="adicionarCarrinho('${p.nome}', ${p.preco})" class="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-1.5 rounded-xl">Pedir</button>
+            </div>
+          </div>
+        `;
+      });
+    };
+
+    function adicionarCarrinho(nome, preco) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      const existente = carrinho.find(item => item.nome === nome);
+      if (existente) {
+        existente.qtd++;
+      } else {
+        carrinho.push({ nome, preco, qtd: 1 });
+      }
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      atualizarContador();
+      mostrarToast();
+    }
+
+    function atualizarContador() {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      const totalItens = carrinho.reduce((acc, item) => acc + item.qtd, 0);
+      contadorCarrinho.textContent = totalItens;
+    }
+
+    function verCarrinho() {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      listaCarrinho.innerHTML = "";
+      let total = 0;
+      carrinho.forEach((item, i) => {
+        total += item.preco * item.qtd;
+        listaCarrinho.innerHTML += `
+          <li class="flex justify-between items-center">
+            <span class="w-1/2">${item.nome}</span>
+            <div class="flex items-center gap-2">
+              <button onclick="alterarQtd(${i}, -1)" class="bg-gray-200 px-2 rounded">−</button>
+              <span>${item.qtd}</span>
+              <button onclick="alterarQtd(${i}, 1)" class="bg-gray-200 px-2 rounded">+</button>
+            </div>
+            <span class="w-20 text-right">R$ ${(item.preco * item.qtd).toFixed(2)}</span>
+            <button onclick="removerItem(${i})" class="text-red-500 ml-2 font-bold">×</button>
+          </li>
+        `;
+      });
+      totalCarrinho.textContent = "R$ " + total.toFixed(2);
+      modalCarrinho.classList.remove("hidden");
+    }
+
+    function alterarQtd(index, delta) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      carrinho[index].qtd += delta;
+      if (carrinho[index].qtd <= 0) carrinho.splice(index, 1);
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      verCarrinho();
+      atualizarContador();
+    }
+
+    function removerItem(index) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      carrinho.splice(index, 1);
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      verCarrinho();
+      atualizarContador();
+    }
+
+    function limparCarrinho() {
+      localStorage.removeItem("carrinho");
+      verCarrinho();
+      atualizarContador();
+    }
+
+    function fecharCarrinho() {
+      modalCarrinho.classList.add("hidden");
+    }
+
+    function abrirModalNome() {
+      modalNome.classList.remove("hidden");
+    }
+
+    function fecharModalNome() {
+      modalNome.classList.add("hidden");
+    }
+
+    function finalizarPedido() {
+      const nome = document.getElementById("nome-cliente").value.trim();
+      if (!nome) {
+        alert("Por favor, informe seu nome.");
+        return;
+      }
+
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      let mensagem = `*Pedido da Adega Pai D'égua*\n\nNome: ${nome}\n\nItens:\n`;
+      carrinho.forEach(item => {
+        mensagem += `${item.nome} - ${item.qtd} x R$ ${item.preco.toFixed(2)}\n`;
+      });
+      mensagem += `\nTotal: R$ ${(carrinho.reduce((acc, item) => acc + item.preco * item.qtd, 0)).toFixed(2)}`;
+
+      const whatsappLink = `https://wa.me/5511914042925?text=${encodeURIComponent(mensagem)}`;
+      window.open(whatsappLink, "_blank");
+
+      limparCarrinho();
+      fecharCarrinho();
+      fecharModalNome();
+    }
+
+    function mostrarToast() {
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2500);
+    }
+
+    renderCategoria(cervejas, "cervejas");
+    renderCategoria(Caixas, "caixas");
+    renderCategoria(whiskys, "whiskys");
     renderCategoria(energeticos, "energeticos");
+    renderCategoria(gins, "gins");
+    renderCategoria(cachaças, "cachaças");
+    renderCategoria(refrigerantes, "refrigerantes");
     atualizarContador();
   </script>
 </body>
