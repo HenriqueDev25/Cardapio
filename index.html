@@ -65,6 +65,9 @@
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cachaças</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cachaças"></div>
 
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Vodkas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="vodkas"></div>
+
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Doses</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="doses"></div>
 
@@ -157,6 +160,10 @@
     { nome: "Contine", preco: 37.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/vermouth-contini-bianco-900ml/rbbebidasdistribuidora/217p/2c856567ad2439a849f7442a9fed5577.jpeg" },
   ];
 
+  const vodkas = [
+    { nome: "Aakov", preco: 21.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1LIPSSEm-Qw1vhIM3vGxVHHKSK_3e5g2ppw&s" },
+    { nome: "Vodka Smirnoff", preco: 16.00, imagem: "https://mfresh.s3.amazonaws.com/uploads/product/sku/3538/image/dc63d991-7ccb-4108-b95c-8c547ad85a33.jpeg" },
+  ];
   
   const energeticos = [
     { nome: "Red Bull", preco: 10.00, descricao: "diversos sabores", imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/3401-energetico-red-bull-energy-drink-250ml.jpg?s=60f44e2e30f15d9fb0bee05c289d03a9" },
@@ -369,6 +376,7 @@
     renderCategoria(Tabacaria, "tabacaria");
     renderCategoria(Salgadinhos, "salgadinhos");
     renderCategoria(Gelos, "gelos");
+    renderCategoria(vodkas, "vodkas");
     atualizarContador();
   </script>
 </body>
