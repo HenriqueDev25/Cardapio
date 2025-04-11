@@ -68,6 +68,9 @@
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Doses</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="doses"></div>
 
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Gelos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="gelos"></div>
+
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Refrigerantes</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="refrigerantes"></div>
 
@@ -149,7 +152,9 @@
     const cachaças = [
     { nome: "Kariri", preco: 21.00, imagem: "https://a-static.mlcdn.com.br/800x560/cachaca-kariri-com-k-ouro-960ml/lojamegaadegakanguru/58808/1a65b5b3a20645039770b3618c58abaf.jpeg" },
     { nome: "51", preco: 16.00, imagem: "https://th.bing.com/th/id/OIP.fXxl1bXRfFe5mBvlfe8OHgHaHa?rs=1&pid=ImgDetMain" },
+    { nome: "Pitu", preco: 7.00, imagem: "https://armazemnordestino.com.br/wp-content/uploads/2023/03/Lata-pitu.jpg" },
     { nome: "Dreher", preco: 23.00, imagem: "https://th.bing.com/th/id/OIP.5VQoPaa8pU-60wwDUGYMpQHaKe?rs=1&pid=ImgDetMain" },
+    { nome: "Contine", preco: 37.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/vermouth-contini-bianco-900ml/rbbebidasdistribuidora/217p/2c856567ad2439a849f7442a9fed5577.jpeg" },
   ];
 
   
@@ -160,11 +165,11 @@
  ];
 
     const gins = [
-      { nome: "Eternity Morango", preco: 79.90, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161573/Gin-Eternity-Strawberry-900ml.jpg?v=638514746107800000" },
-      { nome: "Eternity Maçã Verde", preco: 79.90, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161572/Gin-Eternity-Maca-Verde-900ml.jpg?v=638514742696530000  " },
-      { nome: "Eternity Melancia", preco: 79.90, imagem: "https://th.bing.com/th/id/OIP.65UuUchhCVT8-w4ldjxCKAHaHa?rs=1&pid=ImgDetMain" },
-      { nome: "Eternity Tropical", preco: 79.90, imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/19543-gin-eternity-tropical-fruits-900ml.20240626131948.jpg?p=product_regular&s=c715ec724cb701a0e7ef8517e5e62a34" },
-      { nome: "Eternity Pêssego e Framboesa", preco: 79.90, imagem: "https://a-static.mlcdn.com.br/1500x1500/gin-eternity-pessego-e-framboesa-900ml/royalbebidasonline/21572/84455031705a9ab383542caba1ee0128.jpeg" },
+      { nome: "Eternity Morango", preco: 25.00, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161573/Gin-Eternity-Strawberry-900ml.jpg?v=638514746107800000" },
+      { nome: "Eternity Maçã Verde", preco: 25.00, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161572/Gin-Eternity-Maca-Verde-900ml.jpg?v=638514742696530000  " },
+      { nome: "Eternity Melancia", preco: 25.00, imagem: "https://th.bing.com/th/id/OIP.65UuUchhCVT8-w4ldjxCKAHaHa?rs=1&pid=ImgDetMain" },
+      { nome: "Eternity Tropical", preco: 25.00, imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/19543-gin-eternity-tropical-fruits-900ml.20240626131948.jpg?p=product_regular&s=c715ec724cb701a0e7ef8517e5e62a34" },
+      { nome: "Eternity Pêssego e Framboesa", preco: 25.00, imagem: "https://a-static.mlcdn.com.br/1500x1500/gin-eternity-pessego-e-framboesa-900ml/royalbebidasonline/21572/84455031705a9ab383542caba1ee0128.jpeg" },
     ];
 
     const refrigerantes = [
@@ -181,6 +186,8 @@
       { nome: "Piteira", preco: 5.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR17hHvKCI2CnZIK-cE808DvH64AP0gULe9Pg&s" },
       { nome: "Rothmans Azul", preco: 12.00, imagem: "https://cdn.awsli.com.br/600x700/230/230578/produto/124688696/0a01917000.jpg" },
       { nome: "Rothmans Vermelho", preco: 5.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj_T2mVa1t7tHRp2RYOOJQksWwu5KWKhhUUA&s" },
+      { nome: "San Marino", preco: 12.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwbyPwzjGzqCkLwZJ5vIr9TXYt_Iq53DXQDw&s" },
+      { nome: "Eight", preco: 5.00, imagem: "https://phygital-files.mercafacil.com/supersantafe/uploads/produto/cigarro_eight_king_size_c12445fc-658d-4386-93ed-93496f40d319.png" },
     ];
 
     const Doses = [
@@ -213,6 +220,13 @@
       { nome: "Combo Red Label Vibe", preco: 130.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFTGo55xlDlT8eNFhV_ODb9FHfllr9VDK1sA&s" },
       { nome: "Combo Rocks 1L Vibe", preco: 58.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2jveRfEJs2y4lW11swvwHTovm8WXcyMj56P49NX-Z3GtmURUxu8ti___ujcmZ5svFw-M&usqp=CAU" },
       { nome: "Combo Eternity", preco: 48.00, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNuW7PPGwlWLWclWI5y3q0QUCZ0MaxKOJ5ZA&s" },
+    ];
+
+    const Gelos = [
+      { nome: "Gelo Maçã Verde", preco: 3.50, imagem: "https://covabra.vtexassets.com/arquivos/ids/179593/99331.jpg?v=638107808497070000" },
+      { nome: "Gelo Morango", preco: 3.50, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyqQTiiDhL0AM7KkTEBveLysp9QAO4afFBTA&s" },
+      { nome: "Gelo Maracuja", preco: 3.50, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTso1LCNnngI2nZiG5rWBDKsJR5Rj21IUG2QQ&s" },
+      { nome: "Gelo de Coco", preco: 3.50, imagem: "https://covabra.vtexassets.com/arquivos/ids/179659-800-450?v=638107808628700000&width=800&height=450&aspect=true" },
     ];
 
     const contadorCarrinho = document.getElementById("contador-carrinho");
@@ -354,6 +368,7 @@
     renderCategoria(refrigerantes, "refrigerantes");
     renderCategoria(Tabacaria, "tabacaria");
     renderCategoria(Salgadinhos, "salgadinhos");
+    renderCategoria(Gelos, "gelos");
     atualizarContador();
   </script>
 </body>
