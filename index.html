@@ -55,6 +55,12 @@
 
       <h2 class="text-2xl font-bold mb-4 text-yellow-400">Gin</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="gins"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cachaças</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cachaças"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Energeticos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="energeticos"></div>
     </div>
   </div>
 
@@ -89,26 +95,42 @@
 
   <script>
     const cervejas = [
-      { nome: "Heineken Long Neck", preco: 9.90, imagem: "https://source.unsplash.com/400x300/?heineken" },
-      { nome: "Budweiser 600ml", preco: 13.90, imagem: "https://source.unsplash.com/400x300/?budweiser" },
-      { nome: "Império Puro Malte", preco: 4.90, imagem: "https://source.unsplash.com/400x300/?imperio,beer" },
-      { nome: "Antarctica Original 600ml", preco: 10.90, imagem: "https://source.unsplash.com/400x300/?cerveja,original" },
-      { nome: "Brahma Duplo Malte", preco: 5.90, imagem: "https://source.unsplash.com/400x300/?brahma,beer" },
-      { nome: "Skol 350ml", preco: 3.90, imagem: "https://source.unsplash.com/400x300/?skol,beer" },
-      { nome: "Petra Origem Puro Malte", preco: 4.50, imagem: "https://source.unsplash.com/400x300/?petra,beer" },
+      { nome: "Heineken", preco: 9.90, imagem: "https://th.bing.com/th/id/OIP.gLGHPrgQbovtQU4wXE6hYwHaHa?rs=1&pid=ImgDetMain" },
+      { nome: "Budweiser", preco: 13.90, imagem: "https://down-br.img.susercontent.com/file/6cf56f35c9005d4f45ced45db0c30edb" },
+      { nome: "Império", preco: 4.90, imagem: "https://tfchgi.vteximg.com.br/arquivos/ids/171586-1000-1000/7898915949209.jpg?v=637783886469700000" },
+      { nome: "Original", preco: 10.90, imagem: "https://coopsp.vtexassets.com/arquivos/ids/232285-800-800?v=638158831793470000&width=800&height=800&aspect=true" },
+      { nome: "Brahma Duplo Malte", preco: 5.90, imagem: "https://lelecodelivery.com.br/wp-content/uploads/2020/10/BRAHMA-DUPLO-MALTE-1024x1024.png" },
+      { nome: "Skol", preco: 3.90, imagem: "https://armazemseuluiz.com.br/storage/app/uploads/public/637/bc8/624/637bc8624b183689503712" },
+      { nome: "Petra", preco: 4.50, imagem: "https://www.imigrantesbebidas.com.br/bebida/images/products/full/88162-cerveja-petra-puro-malte-lata-269ml.jpg" },
+      { nome: "Estrella Galicia", preco: 4.50, imagem: "https://statics.angeloni.com.br/super/files/produtos/3999454/3999454_1_zoom.jpg" },
+      { nome: "Spaten", preco: 4.50, imagem: "https://th.bing.com/th/id/OIP.zr9UqRQG88fka5u9w8wa4QHaHa?rs=1&pid=ImgDetMain" },
     ];
 
     const whiskys = [
-      { nome: "Red Label", preco: 99.90, imagem: "https://source.unsplash.com/400x300/?redlabel" },
-      { nome: "Jack Daniel's", preco: 139.90, imagem: "https://source.unsplash.com/400x300/?jackdaniels" },
-      { nome: "Jack Daniel's Fire", preco: 149.90, imagem: "https://source.unsplash.com/400x300/?jackdaniels,fire" },
+      { nome: "Red Label", preco: 99.90, imagem: "https://i5.walmartimages.com/asr/70d063f5-8328-44b2-91ee-9eec40f5908c_2.53a1ae92e78bba8bafae76f4d204b660.jpeg" },
+      { nome: "Jack Daniel's", preco: 139.90, imagem: "https://imagevault.skulibrary.com/ColesLiquor/NoPrefix/e2520ee2b408c79be0916bdd062e372f1423c031/images/2400/id/CLG-8331431-1.jpg" },
+      { nome: "Jack Daniel's Fire", preco: 149.90, imagem: "https://cdn.myshoptet.com/usr/www.bumbaj.sk/user/shop/big/519_jack-daniel-s-fire-35--0-70-l.jpg?6362878e" },
     ];
 
+    const cachaças = [
+    { nome: "Kariri", preco: 99.90, imagem: "https://a-static.mlcdn.com.br/800x560/cachaca-kariri-com-k-ouro-960ml/lojamegaadegakanguru/58808/1a65b5b3a20645039770b3618c58abaf.jpeg" },
+    { nome: "51", preco: 139.90, imagem: "https://th.bing.com/th/id/OIP.fXxl1bXRfFe5mBvlfe8OHgHaHa?rs=1&pid=ImgDetMain" },
+    { nome: "Dreher", preco: 149.90, imagem: "https://th.bing.com/th/id/OIP.5VQoPaa8pU-60wwDUGYMpQHaKe?rs=1&pid=ImgDetMain" },
+  ];
+
+  
+  const energeticos = [
+    { nome: "Red Bull", preco: 9.90, imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/3401-energetico-red-bull-energy-drink-250ml.jpg?s=60f44e2e30f15d9fb0bee05c289d03a9" },
+    { nome: "Monster", preco: 12.90, imagem: "https://images.tcdn.com.br/img/img_prod/774261/energy_monster_lata_473ml_306_1_2081e6152f57ef62aa20d9698098229a.jpg" },
+    { nome: "Baly", preco: 7.90, imagem: "https://images.tcdn.com.br/img/img_prod/1091246/energetico_baly_maca_verde_2l_695_1_c7f8899cac7db5a7593faf51d0e3026c.jpg" },
+    { nome: "Vibe", preco: 6.90, imagem: "https://th.bing.com/th/id/OIP.6yO_wZZX3vwUdnj8JLQI_gHaHa?rs=1&pid=ImgDetMain" },
+ ];
+
     const gins = [
-      { nome: "Eternity Morango", preco: 79.90, imagem: "https://source.unsplash.com/400x300/?gin,strawberry" },
-      { nome: "Eternity Maçã Verde", preco: 79.90, imagem: "https://source.unsplash.com/400x300/?gin,apple" },
-      { nome: "Eternity Melancia", preco: 79.90, imagem: "https://source.unsplash.com/400x300/?gin,watermelon" },
-      { nome: "Eternity Tropical", preco: 79.90, imagem: "https://source.unsplash.com/400x300/?gin,tropical" },
+      { nome: "Eternity Morango", preco: 79.90, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161573/Gin-Eternity-Strawberry-900ml.jpg?v=638514746107800000" },
+      { nome: "Eternity Maçã Verde", preco: 79.90, imagem: "https://bebidasfamosas.vtexassets.com/arquivos/ids/161572/Gin-Eternity-Maca-Verde-900ml.jpg?v=638514742696530000  " },
+      { nome: "Eternity Melancia", preco: 79.90, imagem: "https://th.bing.com/th/id/OIP.65UuUchhCVT8-w4ldjxCKAHaHa?rs=1&pid=ImgDetMain" },
+      { nome: "Eternity Tropical", preco: 79.90, imagem: "https://www.imigrantesbebidas.com.br/img/bebida/images/products/full/19543-gin-eternity-tropical-fruits-900ml.20240626131948.jpg?p=product_regular&s=c715ec724cb701a0e7ef8517e5e62a34" },
     ];
 
     const contadorCarrinho = document.getElementById("contador-carrinho");
@@ -242,6 +264,8 @@
     renderCategoria(cervejas, "cervejas");
     renderCategoria(whiskys, "whiskys");
     renderCategoria(gins, "gins");
+    renderCategoria(cachaças, "cachaças");
+    renderCategoria(energeticos, "energeticos");
     atualizarContador();
   </script>
 </body>
