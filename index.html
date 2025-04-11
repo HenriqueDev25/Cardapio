@@ -1,1033 +1,248 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Adega Pai D'égua</title>
-  <link rel="icon" href="logo.ico" type="image/x-icon">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
+      font-family: 'Inter', sans-serif;
     }
-
-    header {
-      background-color: #68331a;
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #22c55e;
       color: white;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin: 0;
-    }
-
-    nav {
-      display: flex;
-      gap: 20px;
-      font-size: 1.1rem;
-      align-items: center;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      background-color: #5f301b;
-      border-radius: 5px;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      background-color: #6e492b;
-    }
-
-    #loginIcon {
-      cursor: pointer;
-      font-size: 1.8rem;
-    }
-
-    .search-container {
-      padding: 20px;
-      background-color: white;
-      margin: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #searchInput {
-      width: 100%;
       padding: 12px 20px;
-      border: 2px solid #ddd;
-      border-radius: 25px;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.3s;
+      border-radius: 8px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 50;
     }
-
-    #searchInput:focus {
-      border-color: #5f2f19;
-    }
-
-    .filter-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      padding: 8px 15px;
-      background-color: #f4f4f4;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      background-color: #8b3e1b;
-      color: white;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-
-    .card {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      padding: 20px;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-    }
-
-    .card img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-
-    .card h3 {
-      color: #8b3e1b;
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: #555;
-      margin-bottom: 15px;
-      font-size: 1rem;
-    }
-
-    .card .price {
-      font-weight: bold;
-      color: #8b3e1b;
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-    }
-
-    .quantity-control {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .quantity-control button {
-      background-color: #8b3e1b;
-      color: white;
-      border: none;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .quantity-control input {
-      width: 50px;
-      text-align: center;
-      margin: 0 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 5px;
-    }
-
-    .add-to-cart {
-      background-color: #8b3e1b;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      width: 100%;
-    }
-
-    .add-to-cart:hover {
-      background-color: #a85c32;
-    }
-
-    /* Infobox */
-    .infobox {
-      background-color: #e1f5fe;
-      color: #814319;
-      padding: 15px;
-      border-radius: 5px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin: 20px;
-      font-size: 1.2rem;
-      text-align: center;
-      display: none;
-    }
-
-    /* Modal do Carrinho */
-    #cartModal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      z-index: 999;
-      max-width: 500px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-
-    #cartItems {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .cart-item-info {
-      flex-grow: 1;
-    }
-
-    .cart-item-actions {
-      display: flex;
-      align-items: center;
-    }
-
-    .remove-item {
-      background-color: #ff4444;
-      color: white;
-      border: none;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      cursor: pointer;
-      margin-left: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #cartTotal {
-      font-weight: bold;
-      font-size: 1.2rem;
-      margin: 20px 0;
-      text-align: right;
-    }
-
-    #cartModal button {
-      margin: 5px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-
-    #cartModal button:first-child {
-      background-color: #25D366;
-      color: white;
-    }
-
-    #cartModal button:last-child {
-      background-color: #ccc;
-    }
-
-    .cart-count {
-      background-color: #855b39;
-      color: white;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 0.8rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: 5px;
-    }
-
-    /* Formulário de Login/Cadastro */
-    #loginModal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      z-index: 999;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .form-container input {
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      max-width: 350px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-
-    .form-container button {
-      background-color: #8b3e1b;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 1rem;
-      width: 100%;
-      max-width: 350px;
-      margin: 10px 0;
-    }
-
-    .form-container button:hover {
-      background-color: #a85c32;
-    }
-
-    /* Responsividade */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .container {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      }
-    }
-
-    @media (max-width: 480px) {
-      .form-container input, .form-container button {
-        width: 100%;
-        max-width: 100%;
-      }
-    }
-
-    /* Rodapé */
-    footer {
-      background-color: #333;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-      font-size: 1rem;
-      margin-top: 40px;
-      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    footer .footer-content {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-bottom: 20px;
-    }
-
-    footer .footer-content a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
-      transition: color 0.3s;
-    }
-
-    footer .footer-content a:hover {
-      color: #f4a261;
-    }
-
-    footer .footer-bottom {
-      font-size: 0.9rem;
-      color: #bbb;
-    }
-
-    /* Botão de Importação */
-    .import-btn {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-left: 10px;
-      display: none;
-    }
-
-    .import-btn:hover {
-      background-color: #45a049;
-    }
-
-    /* Modal de Importação */
-    #importModal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      z-index: 999;
-      width: 90%;
-      max-width: 500px;
-    }
-
-    #importModal h2 {
-      margin-bottom: 20px;
-      color: #8b3e1b;
-    }
-
-    #importModal label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-
-    #importModal input[type="file"] {
-      margin-bottom: 20px;
-      width: 100%;
-    }
-
-    #importModal button {
-      background-color: #8b3e1b;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-
-    #importModal button:hover {
-      background-color: #a85c32;
-    }
-
-    .modal-buttons {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 20px;
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-gray-900 to-black text-white min-h-screen px-4 py-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-10">
+      <h1 class="text-4xl font-extrabold">Adega Pai D'égua</h1>
+      <button onclick="verCarrinho()" class="bg-yellow-400 text-black px-4 py-2 rounded-xl font-bold hover:bg-yellow-300 transition">
+        Carrinho (<span id="contador-carrinho">0</span>)
+      </button>
+    </div>
 
-  <header>
-    <h1>Adega Pai D'égua</h1>
-    <nav>
-      <a href="#" onclick="mostrarCarrinho()">Carrinho <span id="cartCounter" class="cart-count">0</span></a>
-      <a href="#" id="loginLink" onclick="showLoginModal()">Login</a>
-      <button id="importBtn" class="import-btn" onclick="showImportModal()">Importar Produtos</button>
-    </nav>
-  </header>
+    <div id="toast" class="toast">Item adicionado ao carrinho!</div>
 
-  <!-- Infobox que mostra mensagens de sucesso/erro -->
-  <div class="infobox" id="infobox">
-    <p id="infoboxMessage"></p>
-  </div>
+    <div>
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cervejas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cervejas"></div>
 
-  <!-- Barra de busca e filtros -->
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Buscar produtos..." onkeyup="filterProducts()">
-    <div class="filter-buttons">
-      <button class="filter-btn active" onclick="filterProducts('all')">Todos</button>
-      <button class="filter-btn" onclick="filterProducts('Vinho')">Vinhos</button>
-      <button class="filter-btn" onclick="filterProducts('Cerveja')">Cervejas</button>
-      <button class="filter-btn" onclick="filterProducts('Whisky')">Whiskies</button>
-      <button class="filter-btn" onclick="filterProducts('Energeticos')">Energeticos</button>
-      <button class="filter-btn" onclick="filterProducts('Cachaças')">Cachaças</button>
-      <button class="filter-btn" onclick="filterProducts('Aguas')">Aguas</button>
-      <button class="filter-btn" onclick="filterProducts('Salgadinho/doce')">Salgadinho/doce</button>
-      <button class="filter-btn" onclick="filterProducts('Tabacaria')">Tabacaria</button>
-      <button class="filter-btn" onclick="filterProducts('doses')">doses</button>
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Whisky</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="whiskys"></div>
+
+      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Gin</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="gins"></div>
     </div>
   </div>
 
-  <div class="container" id="productsContainer">
-    <!-- Os produtos serão carregados dinamicamente via JavaScript -->
-  </div>
-
-  <!-- Modal do Carrinho -->
-  <div id="cartModal">
-    <h2>Meu Carrinho</h2>
-    <div id="cartItems"></div>
-    <div id="cartTotal">Total: R$ 0,00</div>
-    <button onclick="enviarCarrinhoWhatsApp()">Enviar via WhatsApp</button>
-    <button onclick="fecharCarrinho()">Fechar</button>
-  </div>
-
-  <!-- Modal de Login/Cadastro -->
-  <div id="loginModal">
-    <div class="form-container">
-      <h2>Login</h2>
-      <input type="text" id="username" placeholder="Usuário" required>
-      <input type="password" id="password" placeholder="Senha" required>
-      <button onclick="submitForm()">Entrar</button>
-      <button onclick="toggleForm()">Cadastrar</button>
+  <!-- Modal do carrinho -->
+  <div id="modal-carrinho" class="fixed inset-0 bg-black/80 hidden z-40 flex items-center justify-center">
+    <div class="bg-white text-black p-6 rounded-xl w-full max-w-lg shadow-xl relative">
+      <h2 class="text-2xl font-bold mb-4">Seu Carrinho</h2>
+      <ul id="lista-carrinho" class="mb-4 space-y-2 max-h-60 overflow-y-auto"></ul>
+      <div class="flex justify-between items-center font-semibold text-lg mb-4">
+        <span>Total:</span>
+        <span id="total-carrinho">R$ 0,00</span>
+      </div>
+      <div class="flex gap-4">
+        <button onclick="abrirModalNome()" class="bg-yellow-500 w-full py-2 rounded-xl font-bold hover:bg-yellow-400">Finalizar Pedido</button>
+        <button onclick="limparCarrinho()" class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-400">Limpar</button>
+      </div>
+      <button onclick="fecharCarrinho()" class="absolute top-2 right-4 text-black font-bold text-xl">&times;</button>
     </div>
   </div>
 
-  <!-- Modal de Importação -->
-  <div id="importModal">
-    <h2>Importar Produtos via Excel</h2>
-    <label for="excelFile">Selecione um arquivo Excel (.xlsx, .xls):</label>
-    <input type="file" id="excelFile" accept=".xlsx, .xls" />
-    <div class="modal-buttons">
-      <button onclick="importProducts()">Importar</button>
-      <button onclick="closeImportModal()">Cancelar</button>
+  <!-- Modal para pegar o nome -->
+  <div id="modal-nome" class="fixed inset-0 bg-black/80 hidden z-40 flex items-center justify-center">
+    <div class="bg-white text-black p-6 rounded-xl w-full max-w-lg shadow-xl">
+      <h2 class="text-2xl font-bold mb-4">Qual o seu nome?</h2>
+      <input id="nome-cliente" type="text" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Digite seu nome" />
+      <div class="flex gap-4 mt-6">
+        <button onclick="finalizarPedido()" class="bg-yellow-500 w-full py-2 rounded-xl font-bold hover:bg-yellow-400">Enviar para o WhatsApp</button>
+        <button onclick="fecharModalNome()" class="bg-red-500 w-full py-2 rounded-xl font-bold hover:bg-red-400">Cancelar</button>
+      </div>
     </div>
   </div>
-
-  <footer>
-    <div class="footer-content">
-      <a href="#">Sobre</a>
-      <a href="#">Contate-nos</a>
-      <a href="#">Termos e Condições</a>
-    </div>
-    <div class="footer-bottom">
-      &copy; 2025 Adega Pai D'égua. Todos os direitos reservados.
-    </div>
-  </footer>
 
   <script>
-    // Dados dos produtos (carregados do localStorage ou inicializados)
-    let produtos = JSON.parse(localStorage.getItem('produtosAdega')) || [
-      // Vinhos
-      { id: 1, nome: "Vinho Branco Seco", categoria: "Vinho", descricao: "Refrescante e leve, perfeito para dias quentes e peixes.", preco: 65.50, imagem: "https://via.placeholder.com/300x200?text=Vinho+Branco" },
-      { id: 2, nome: "Vinho Tinto Suave", categoria: "Vinho", descricao: "Cor intensa e sabor frutado, ideal para carnes vermelhas.", preco: 72.90, imagem: "https://via.placeholder.com/300x200?text=Vinho+Tinto" },
-      
-      // Cervejas
-      { id: 3, nome: "Cerveja Artesanal IPA", categoria: "Cerveja", descricao: "Amarga e aromática, com notas cítricas e florais.", preco: 15.80, imagem: "https://via.placeholder.com/300x200?text=Cerveja+IPA" },
-      { id: 8, nome: "Itaipava Puro Malte", categoria: "Cerveja", descricao: "Cerveja puro malte, sabor suave e refrescante.", preco: 4.90, imagem: "https://via.placeholder.com/300x200?text=Itaipava" },
-      { id: 9, nome: "Império Puro Malte", categoria: "Cerveja", descricao: "Cerveja premium com ingredientes selecionados.", preco: 5.50, imagem: "https://via.placeholder.com/300x200?text=Imperio" },
-      { id: 10, nome: "Heineken Long Neck", categoria: "Cerveja", descricao: "Cerveja importada com sabor característico.", preco: 8.90, imagem: "https://via.placeholder.com/300x200?text=Heineken" },
-      { id: 11, nome: "Original Pilsen", categoria: "Cerveja", descricao: "Cerveja tradicional brasileira, sabor marcante.", preco: 5.20, imagem: "https://via.placeholder.com/300x200?text=Original" },
-      { id: 12, nome: "Amstel Lata", categoria: "Cerveja", descricao: "Cerveja puro malte com baixo amargor.", preco: 4.80, imagem: "https://via.placeholder.com/300x200?text=Amstel" },
-      { id: 13, nome: "Skol Lata", categoria: "Cerveja", descricao: "A cerveja mais vendida do Brasil, sabor leve.", preco: 4.50, imagem: "https://via.placeholder.com/300x200?text=Skol" },
-      { id: 14, nome: "Spaten Munich", categoria: "Cerveja", descricao: "Cerveja alemã tradicional, sabor encorpado.", preco: 12.90, imagem: "https://via.placeholder.com/300x200?text=Spaten" },
-      
-      // Whiskies
-      { id: 4, nome: "Whisky 12 anos", categoria: "Whisky", descricao: "Envelhecido em barris de carvalho, com notas de baunilha e especiarias.", preco: 189.90, imagem: "https://via.placeholder.com/300x200?text=Whisky+12+anos" },
-      { id: 15, nome: "Jack Daniel's", categoria: "Whisky", descricao: "Whisky Tennessee, suave com notas de caramelo e madeira.", preco: 149.90, imagem: "https://via.placeholder.com/300x200?text=Jack+Daniels" },
-      { id: 16, nome: "Johnnie Walker Red Label", categoria: "Whisky", descricao: "Whisky escocês blend, sabor defumado e frutado.", preco: 129.90, imagem: "https://via.placeholder.com/300x200?text=Johnnie+Walker" },
-      { id: 17, nome: "Ballantine's Finest", categoria: "Whisky", descricao: "Whisky escocês blend com notas de mel e baunilha.", preco: 119.90, imagem: "https://via.placeholder.com/300x200?text=Ballantines" },
-      { id: 18, nome: "Chivas Regal 12 anos", categoria: "Whisky", descricao: "Whisky escocês premium, sabor rico e complexo.", preco: 229.90, imagem: "https://via.placeholder.com/300x200?text=Chivas+Regal" },
-      { id: 19, nome: "Jameson", categoria: "Whisky", descricao: "Whisky irlandês triplo destilado, suave e aromático.", preco: 159.90, imagem: "https://via.placeholder.com/300x200?text=Jameson" },
-      
-      // Energéticos
-      { id: 5, nome: "Red Bull Energy Drink", categoria: "Energeticos", descricao: "Energético que aumenta a resistência e concentração.", preco: 9.50, imagem: "https://via.placeholder.com/300x200?text=Red+Bull" },
-      { id: 20, nome: "Monster Energy", categoria: "Energeticos", descricao: "Energético com alto teor de cafeína e taurina.", preco: 10.90, imagem: "https://via.placeholder.com/300x200?text=Monster" },
-      { id: 21, nome: "TNT Energy Drink", categoria: "Energeticos", descricao: "Energético brasileiro com sabor intenso.", preco: 7.50, imagem: "https://via.placeholder.com/300x200?text=TNT" },
-      { id: 22, nome: "Fusion Energy Drink", categoria: "Energeticos", descricao: "Energético com vitaminas e guaraná.", preco: 6.90, imagem: "https://via.placeholder.com/300x200?text=Fusion" },
-      { id: 23, nome: "Burn Energy Drink", categoria: "Energeticos", descricao: "Energético com sabor cítrico e estimulante.", preco: 8.50, imagem: "https://via.placeholder.com/300x200?text=Burn" },
-      { id: 24, nome: "Powerade Isotônico", categoria: "Energeticos", descricao: "Bebida isotônica para repor energias.", preco: 6.50, imagem: "https://via.placeholder.com/300x200?text=Powerade" },
-      
-      // Outros
-      { id: 6, nome: "Cachaça Premium", categoria: "Cachaças", descricao: "Envelhecida em madeira nobre, sabor suave e aromático.", preco: 45.00, imagem: "https://via.placeholder.com/300x200?text=Cachaça+Premium" },
-      { id: 7, nome: "Água Mineral 500ml", categoria: "Aguas", descricao: "Água mineral natural, garrafa de 500ml.", preco: 3.50, imagem: "https://via.placeholder.com/300x200?text=Água+Mineral" }
+    const cervejas = [
+      { nome: "Heineken Long Neck", preco: 9.90, imagem: "https://source.unsplash.com/400x300/?heineken" },
+      { nome: "Budweiser 600ml", preco: 13.90, imagem: "https://source.unsplash.com/400x300/?budweiser" },
+      { nome: "Império Puro Malte", preco: 4.90, imagem: "https://source.unsplash.com/400x300/?imperio,beer" },
+      { nome: "Antarctica Original 600ml", preco: 10.90, imagem: "https://source.unsplash.com/400x300/?cerveja,original" },
+      { nome: "Brahma Duplo Malte", preco: 5.90, imagem: "https://source.unsplash.com/400x300/?brahma,beer" },
+      { nome: "Skol 350ml", preco: 3.90, imagem: "https://source.unsplash.com/400x300/?skol,beer" },
+      { nome: "Petra Origem Puro Malte", preco: 4.50, imagem: "https://source.unsplash.com/400x300/?petra,beer" },
     ];
 
-    // Salva os produtos iniciais se for a primeira vez
-    if (!localStorage.getItem('produtosAdega')) {
-      salvarProdutosNoLocalStorage();
-    }
+    const whiskys = [
+      { nome: "Red Label", preco: 99.90, imagem: "https://source.unsplash.com/400x300/?redlabel" },
+      { nome: "Jack Daniel's", preco: 139.90, imagem: "https://source.unsplash.com/400x300/?jackdaniels" },
+      { nome: "Jack Daniel's Fire", preco: 149.90, imagem: "https://source.unsplash.com/400x300/?jackdaniels,fire" },
+    ];
 
-    let carrinho = JSON.parse(localStorage.getItem('carrinhoAdega')) || [];
-    let isLogin = true;
-    let isAdmin = false;
-    let currentUser = null;
-    let nextProductId = obterProximoIdProduto();
+    const gins = [
+      { nome: "Eternity Morango", preco: 79.90, imagem: "https://source.unsplash.com/400x300/?gin,strawberry" },
+      { nome: "Eternity Maçã Verde", preco: 79.90, imagem: "https://source.unsplash.com/400x300/?gin,apple" },
+      { nome: "Eternity Melancia", preco: 79.90, imagem: "https://source.unsplash.com/400x300/?gin,watermelon" },
+      { nome: "Eternity Tropical", preco: 79.90, imagem: "https://source.unsplash.com/400x300/?gin,tropical" },
+    ];
 
-    // Função para obter o próximo ID de produto
-    function obterProximoIdProduto() {
-      if (produtos.length === 0) return 1;
-      return Math.max(...produtos.map(p => p.id)) + 1;
-    }
+    const contadorCarrinho = document.getElementById("contador-carrinho");
+    const listaCarrinho = document.getElementById("lista-carrinho");
+    const totalCarrinho = document.getElementById("total-carrinho");
+    const modalCarrinho = document.getElementById("modal-carrinho");
+    const modalNome = document.getElementById("modal-nome");
 
-    // Função para salvar produtos no localStorage
-    function salvarProdutosNoLocalStorage() {
-      localStorage.setItem('produtosAdega', JSON.stringify(produtos));
-    }
-
-    // Função para salvar carrinho no localStorage
-    function salvarCarrinhoNoLocalStorage() {
-      localStorage.setItem('carrinhoAdega', JSON.stringify(carrinho));
-    }
-
-    // Carrega os produtos quando a página é carregada
-    document.addEventListener('DOMContentLoaded', function() {
-      renderProducts(produtos);
-      updateCartCounter();
-      
-      // Verifica se há um usuário logado no localStorage
-      const loggedUser = localStorage.getItem('currentUser');
-      if (loggedUser) {
-        currentUser = loggedUser;
-        updateLoginUI();
-        
-        // Verifica se é admin
-        if (currentUser === 'admin') {
-          isAdmin = true;
-          document.getElementById('importBtn').style.display = 'block';
-        }
-      }
-    });
-
-    // Atualiza a interface do usuário logado
-    function updateLoginUI() {
-      const loginLink = document.getElementById('loginLink');
-      if (currentUser) {
-        loginLink.textContent = 'Logout';
-        loginLink.onclick = logout;
-      } else {
-        loginLink.textContent = 'Login';
-        loginLink.onclick = showLoginModal;
-      }
-    }
-
-    // Função de logout
-    function logout() {
-      currentUser = null;
-      isAdmin = false;
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('isAdminLogged');
-      document.getElementById('importBtn').style.display = 'none';
-      updateLoginUI();
-      showInfobox('Logout realizado com sucesso!');
-    }
-
-    // Renderiza os produtos na página
-    function renderProducts(products) {
-      const container = document.getElementById('productsContainer');
-      container.innerHTML = '';
-      
-      if (products.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Nenhum produto encontrado.</p>';
-        return;
-      }
-      
-      products.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <img src="${product.imagem}" alt="${product.nome}">
-          <h3>${product.nome}</h3>
-          <p>${product.descricao}</p>
-          <div class="price">R$ ${product.preco.toFixed(2)}</div>
-          <div class="quantity-control">
-            <button onclick="changeQuantity(${product.id}, -1)">-</button>
-            <input type="number" id="qty-${product.id}" value="1" min="1" onchange="validateQuantity(${product.id})">
-            <button onclick="changeQuantity(${product.id}, 1)">+</button>
+    const renderCategoria = (produtos, containerId) => {
+      const container = document.getElementById(containerId);
+      produtos.forEach((p, i) => {
+        container.innerHTML += `
+          <div class="glass p-6 rounded-2xl shadow-xl hover:scale-[1.02] transition-transform">
+            <img src="${p.imagem}" class="rounded-xl mb-4 w-full h-40 object-cover" alt="${p.nome}">
+            <h3 class="text-xl font-bold mb-2">${p.nome}</h3>
+            <p class="text-gray-300 mb-2">Produto gelado e pronto para você!</p>
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-semibold text-yellow-400">R$ ${p.preco.toFixed(2)}</span>
+              <button onclick="adicionarCarrinho('${p.nome}', ${p.preco})" class="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-1.5 rounded-xl">Pedir</button>
+            </div>
           </div>
-          <button class="add-to-cart" onclick="adicionarAoCarrinho(${product.id})">Adicionar ao Carrinho</button>
         `;
-        container.appendChild(card);
       });
-    }
+    };
 
-    // Filtra os produtos por categoria ou busca
-    function filterProducts(category = 'all') {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      
-      // Atualiza botões de filtro ativos
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if ((category === 'all' && btn.textContent === 'Todos') || 
-            (category === 'Vinho' && btn.textContent === 'Vinhos') ||
-            (category === 'Cerveja' && btn.textContent === 'Cervejas') ||
-            (category === 'Whisky' && btn.textContent === 'Whiskies') ||
-            (category === 'Energeticos' && btn.textContent === 'Energeticos') ||
-            (category === 'Cachaças' && btn.textContent === 'Cachaças') ||
-            (category === 'Aguas' && btn.textContent === 'Aguas') ||
-            (category === 'Salgadinho/doce' && btn.textContent === 'Salgadinho/doce') ||
-            (category === 'Tabacaria' && btn.textContent === 'Tabacaria') ||
-            (category === 'doses' && btn.textContent === 'doses')) {
-          btn.classList.add('active');
-        }
-      });
-      
-      let filteredProducts = produtos;
-      
-      // Filtra por categoria se não for 'all'
-      if (category !== 'all') {
-        filteredProducts = filteredProducts.filter(p => p.categoria === category);
-      }
-      
-      // Filtra por termo de busca se houver
-      if (searchTerm) {
-        filteredProducts = filteredProducts.filter(p => 
-          p.nome.toLowerCase().includes(searchTerm) || 
-          p.descricao.toLowerCase().includes(searchTerm)
-        );
-      }
-      
-      renderProducts(filteredProducts);
-    }
-
-    // Valida a quantidade inserida manualmente
-    function validateQuantity(productId) {
-      const input = document.getElementById(`qty-${productId}`);
-      if (input.value < 1) input.value = 1;
-    }
-
-    // Altera a quantidade do produto
-    function changeQuantity(productId, change) {
-      const input = document.getElementById(`qty-${productId}`);
-      let newValue = parseInt(input.value) + change;
-      if (newValue < 1) newValue = 1;
-      input.value = newValue;
-    }
-
-    // Adiciona produto ao carrinho
-    function adicionarAoCarrinho(productId) {
-      const product = produtos.find(p => p.id === productId);
-      const quantity = parseInt(document.getElementById(`qty-${productId}`).value);
-      
-      // Verifica se o produto já está no carrinho
-      const existingItem = carrinho.find(item => item.id === productId);
-      
-      if (existingItem) {
-        existingItem.quantity += quantity;
+    function adicionarCarrinho(nome, preco) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      const existente = carrinho.find(item => item.nome === nome);
+      if (existente) {
+        existente.qtd++;
       } else {
-        carrinho.push({
-          id: product.id,
-          nome: product.nome,
-          preco: product.preco,
-          quantity: quantity
-        });
+        carrinho.push({ nome, preco, qtd: 1 });
       }
-      
-      showInfobox(`${quantity} ${product.nome} adicionado(s) ao carrinho!`);
-      updateCartCounter();
-      salvarCarrinhoNoLocalStorage();
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      atualizarContador();
+      mostrarToast();
     }
 
-    // Remove item do carrinho
-    function removeFromCart(productId) {
-      carrinho = carrinho.filter(item => item.id !== productId);
-      mostrarCarrinho();
-      updateCartCounter();
-      salvarCarrinhoNoLocalStorage();
-      showInfobox("Item removido do carrinho");
+    function atualizarContador() {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      const totalItens = carrinho.reduce((acc, item) => acc + item.qtd, 0);
+      contadorCarrinho.textContent = totalItens;
     }
 
-    // Atualiza o contador do carrinho
-    function updateCartCounter() {
-      const totalItems = carrinho.reduce((total, item) => total + item.quantity, 0);
-      document.getElementById('cartCounter').textContent = totalItems;
-    }
-
-    // Mostra o carrinho
-    function mostrarCarrinho() {
-      const cartModal = document.getElementById('cartModal');
-      const cartItems = document.getElementById('cartItems');
-      cartItems.innerHTML = "";
-
-      if (carrinho.length === 0) {
-        cartItems.innerHTML = "<p>O carrinho está vazio.</p>";
-        document.getElementById('cartTotal').textContent = "Total: R$ 0,00";
-      } else {
-        let total = 0;
-        
-        carrinho.forEach((item, index) => {
-          const itemTotal = item.preco * item.quantity;
-          total += itemTotal;
-          
-          const div = document.createElement('div');
-          div.className = 'cart-item';
-          div.innerHTML = `
-            <div class="cart-item-info">
-              <strong>${index + 1}. ${item.nome}</strong><br>
-              ${item.quantity} x R$ ${item.preco.toFixed(2)} = R$ ${itemTotal.toFixed(2)}
-            </div>
-            <div class="cart-item-actions">
-              <button onclick="changeCartQuantity(${item.id}, -1)">-</button>
-              <span>${item.quantity}</span>
-              <button onclick="changeCartQuantity(${item.id}, 1)">+</button>
-              <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
-            </div>
-          `;
-          cartItems.appendChild(div);
-        });
-        
-        document.getElementById('cartTotal').textContent = `Total: R$ ${total.toFixed(2)}`;
-      }
-
-      cartModal.style.display = "block";
-    }
-
-    // Altera quantidade no carrinho
-    function changeCartQuantity(productId, change) {
-      const item = carrinho.find(item => item.id === productId);
-      if (item) {
-        item.quantity += change;
-        if (item.quantity < 1) {
-          removeFromCart(productId);
-        } else {
-          mostrarCarrinho();
-          updateCartCounter();
-          salvarCarrinhoNoLocalStorage();
-        }
-      }
-    }
-
-    // Função para abrir e fechar o modal de login
-    function showLoginModal() {
-      const loginModal = document.getElementById('loginModal');
-      if (loginModal.style.display === 'block') {
-        loginModal.style.display = 'none';
-      } else {
-        loginModal.style.display = 'block';
-      }
-    }
-
-    function closeLoginModal() {
-      document.getElementById('loginModal').style.display = 'none';
-    }
-
-    function toggleForm() {
-      isLogin = !isLogin;
-      document.querySelector('#loginModal h2').textContent = isLogin ? 'Login' : 'Cadastro';
-      document.querySelectorAll('.form-container button')[0].textContent = isLogin ? 'Entrar' : 'Cadastrar';
-    }
-
-    function submitForm() {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if (!username || !password) return alert('Preencha todos os campos.');
-
-      let users = JSON.parse(localStorage.getItem('usuarios') || '{}');
-
-      if (isLogin) {
-        if (username === 'admin' && password === '1213') {
-          isAdmin = true;
-          currentUser = 'admin';
-          localStorage.setItem('currentUser', currentUser);
-          localStorage.setItem('isAdminLogged', 'true');
-          document.getElementById('importBtn').style.display = 'block';
-          showInfobox('Login de administrador bem-sucedido!');
-          closeLoginModal();
-          updateLoginUI();
-        } else if (users[username] && users[username].senha === password) {
-          currentUser = username;
-          localStorage.setItem('currentUser', currentUser);
-          showInfobox('Login bem-sucedido!');
-          closeLoginModal();
-          updateLoginUI();
-        } else {
-          showInfobox('Usuário ou senha inválidos.');
-        }
-      } else {
-        if (users[username]) {
-          showInfobox('Usuário já existe!');
-        } else {
-          users[username] = { senha: password };
-          localStorage.setItem('usuarios', JSON.stringify(users));
-          showInfobox('Cadastro realizado com sucesso!');
-          toggleForm();
-        }
-      }
-    }
-
-    // Função para mostrar a infobox
-    function showInfobox(message) {
-      const infobox = document.getElementById('infobox');
-      const infoboxMessage = document.getElementById('infoboxMessage');
-      infoboxMessage.textContent = message;
-      infobox.style.display = 'block';
-      setTimeout(() => {
-        infobox.style.display = 'none';
-      }, 3000);
-    }
-
-    // Enviar carrinho para o WhatsApp
-    function enviarCarrinhoWhatsApp() {
-      if (carrinho.length === 0) {
-        showInfobox("O carrinho está vazio!");
-        return;
-      }
-      
-      let mensagem = "Olá, gostaria de fazer um pedido:\n\n";
+    function verCarrinho() {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      listaCarrinho.innerHTML = "";
       let total = 0;
-      
-      carrinho.forEach(item => {
-        const itemTotal = item.preco * item.quantity;
-        total += itemTotal;
-        mensagem += `- ${item.nome}: ${item.quantity} x R$ ${item.preco.toFixed(2)} = R$ ${itemTotal.toFixed(2)}\n`;
+      carrinho.forEach((item, i) => {
+        total += item.preco * item.qtd;
+        listaCarrinho.innerHTML += `
+          <li class="flex justify-between items-center">
+            <span class="w-1/2">${item.nome}</span>
+            <div class="flex items-center gap-2">
+              <button onclick="alterarQtd(${i}, -1)" class="bg-gray-200 px-2 rounded">−</button>
+              <span>${item.qtd}</span>
+              <button onclick="alterarQtd(${i}, 1)" class="bg-gray-200 px-2 rounded">+</button>
+            </div>
+            <span class="w-20 text-right">R$ ${(item.preco * item.qtd).toFixed(2)}</span>
+            <button onclick="removerItem(${i})" class="text-red-500 ml-2 font-bold">×</button>
+          </li>
+        `;
       });
-      
-      mensagem += `\nTotal: R$ ${total.toFixed(2)}`;
-      
-      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
-      window.open(whatsappUrl, '_blank');
+      totalCarrinho.textContent = "R$ " + total.toFixed(2);
+      modalCarrinho.classList.remove("hidden");
     }
 
-    // Fechar modal do carrinho
+    function alterarQtd(index, delta) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      carrinho[index].qtd += delta;
+      if (carrinho[index].qtd <= 0) carrinho.splice(index, 1);
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      verCarrinho();
+      atualizarContador();
+    }
+
+    function removerItem(index) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      carrinho.splice(index, 1);
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      verCarrinho();
+      atualizarContador();
+    }
+
+    function limparCarrinho() {
+      localStorage.removeItem("carrinho");
+      verCarrinho();
+      atualizarContador();
+    }
+
     function fecharCarrinho() {
-      document.getElementById('cartModal').style.display = 'none';
+      modalCarrinho.classList.add("hidden");
     }
 
-    // Mostrar modal de importação
-    function showImportModal() {
-      if (!isAdmin) {
-        showInfobox('Acesso negado. Somente administradores podem importar produtos.');
+    function abrirModalNome() {
+      modalNome.classList.remove("hidden");
+    }
+
+    function fecharModalNome() {
+      modalNome.classList.add("hidden");
+    }
+
+    function finalizarPedido() {
+      const nome = document.getElementById("nome-cliente").value.trim();
+      if (!nome) {
+        alert("Por favor, informe seu nome.");
         return;
       }
-      document.getElementById('importModal').style.display = 'block';
+
+      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      let mensagem = `*Pedido da Adega Pai D'égua*\n\nNome: ${nome}\n\nItens:\n`;
+      carrinho.forEach(item => {
+        mensagem += `${item.nome} - ${item.qtd} x R$ ${item.preco.toFixed(2)}\n`;
+      });
+      mensagem += `\nTotal: R$ ${(carrinho.reduce((acc, item) => acc + item.preco * item.qtd, 0)).toFixed(2)}`;
+
+      const whatsappLink = `https://wa.me/5511914042925?text=${encodeURIComponent(mensagem)}`;
+      window.open(whatsappLink, "_blank");
+
+      limparCarrinho();
+      fecharCarrinho();
+      fecharModalNome();
     }
 
-    // Fechar modal de importação
-    function closeImportModal() {
-      document.getElementById('importModal').style.display = 'none';
-      document.getElementById('excelFile').value = '';
+    function mostrarToast() {
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2500);
     }
 
-    // Importar produtos do Excel e salvar como JSON
-    function importProducts() {
-      const fileInput = document.getElementById('excelFile');
-      const file = fileInput.files[0];
-      
-      if (!file) {
-        showInfobox('Por favor, selecione um arquivo Excel.');
-        return;
-      }
-      
-      const reader = new FileReader();
-      
-      reader.onload = function(e) {
-        try {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: 'array' });
-          
-          // Assume que a primeira planilha contém os dados
-          const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-          const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-          
-          if (jsonData.length === 0) {
-            showInfobox('O arquivo Excel não contém dados válidos.');
-            return;
-          }
-          
-          // Processa os dados importados
-          const newProducts = jsonData.map(row => {
-            // Verifica se os campos obrigatórios existem
-            if (!row.nome || !row.categoria || !row.preco) {
-              return null;
-            }
-            
-            return {
-              id: nextProductId++,
-              nome: row.nome,
-              categoria: row.categoria,
-              descricao: row.descricao || 'Descrição não disponível',
-              preco: parseFloat(row.preco) || 0,
-              imagem: row.imagem || 'https://via.placeholder.com/300x200?text=Produto+Sem+Imagem'
-            };
-          }).filter(product => product !== null);
-          
-          if (newProducts.length === 0) {
-            showInfobox('Nenhum produto válido encontrado no arquivo.');
-            return;
-          }
-          
-          // Adiciona os novos produtos à lista existente
-          produtos = [...produtos, ...newProducts];
-          
-          // 1. Salva no localStorage (como já estava fazendo)
-          salvarProdutosNoLocalStorage();
-          
-          // 2. Cria um blob JSON para download
-          const produtosJSON = JSON.stringify(produtos, null, 2);
-          const blob = new Blob([produtosJSON], { type: 'application/json' });
-          const url = URL.createObjectURL(blob);
-          
-          // 3. Cria link para download do JSON
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'produtos_adega.json';
-          document.body.appendChild(a);
-          a.click();
-          
-          // 4. Limpa
-          setTimeout(() => {
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-          }, 100);
-          
-          renderProducts(produtos);
-          closeImportModal();
-          showInfobox(`${newProducts.length} produtos importados e JSON gerado com sucesso!`);
-          
-        } catch (error) {
-          console.error('Erro ao importar produtos:', error);
-          showInfobox('Erro ao processar o arquivo Excel. Verifique o formato.');
-        }
-      };
-      
-      reader.onerror = function() {
-        showInfobox('Erro ao ler o arquivo. Tente novamente.');
-      };
-      
-      reader.readAsArrayBuffer(file);
-    }
+    renderCategoria(cervejas, "cervejas");
+    renderCategoria(whiskys, "whiskys");
+    renderCategoria(gins, "gins");
+    atualizarContador();
   </script>
 </body>
-</html>
+  </html>
