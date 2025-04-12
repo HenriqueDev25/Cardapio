@@ -1,7 +1,7 @@
 {
   "name": "adega pai d'égua",
   "short_name": "Atalho",
-  "start_url": "https://henriquedev25.github.io/Cardapio/",
+  "start_url": "/Cardapio/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
