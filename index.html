@@ -13,7 +13,7 @@
       font-family: 'Inter', sans-serif;
     }
     .glass {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.05);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -41,7 +41,7 @@
   <div class="max-w-6xl mx-auto">
     <div class="flex justify-between items-center mb-10">
       <h1 class="text-4xl font-extrabold">Adega Pai D'égua</h1>
-      <button onclick="verCarrinho()" class="bg-yellow-400 text-black px-4 py-2 rounded-xl font-bold hover:bg-yellow-300 transition">
+      <button onclick="verCarrinho()" class="bg-amber-600 text-black px-4 py-2 rounded-xl font-bold hover:bg-amber-500 transition">
         Carrinho (<span id="contador-carrinho">0</span>)
       </button>
     </div>
@@ -49,43 +49,43 @@
     <div id="toast" class="toast">Item adicionado ao carrinho!</div>
 
     <div>
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cervejas</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Cervejas</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cervejas"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Caixas</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Caixas</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="caixas"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Whisky</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Whisky</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="whiskys"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Combos</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Combos</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="combos"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Gin</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Gin</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="gins"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Cachaças</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Cachaças</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="cachaças"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Vodkas</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Vodkas</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="vodkas"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Doses</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Doses</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="doses"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Gelos</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Gelos</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="gelos"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Refrigerantes</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Refrigerantes</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="refrigerantes"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Energeticos</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Energeticos</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="energeticos"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Tabacaria</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Tabacaria</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="tabacaria"></div>
 
-      <h2 class="text-2xl font-bold mb-4 text-yellow-400">Salgadinhos</h2>
+      <h2 class="text-2xl font-bold mb-4 text-amber-600">Salgadinhos</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10" id="salgadinhos"></div>
 
     </div>
@@ -101,7 +101,7 @@
         <span id="total-carrinho">R$ 0,00</span>
       </div>
       <div class="flex gap-4">
-        <button onclick="abrirModalNome()" class="bg-yellow-500 w-full py-2 rounded-xl font-bold hover:bg-yellow-400">Finalizar Pedido</button>
+        <button onclick="abrirModalNome()" class="bg-amber-600 w-full py-2 rounded-xl font-bold hover:bg-amber-500">Finalizar Pedido</button>
         <button onclick="limparCarrinho()" class="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-400">Limpar</button>
       </div>
       <button onclick="fecharCarrinho()" class="absolute top-2 right-4 text-black font-bold text-xl">&times;</button>
@@ -114,7 +114,7 @@
       <h2 class="text-2xl font-bold mb-4">Qual o seu nome?</h2>
       <input id="nome-cliente" type="text" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Digite seu nome" />
       <div class="flex gap-4 mt-6">
-        <button onclick="finalizarPedido()" class="bg-yellow-500 w-full py-2 rounded-xl font-bold hover:bg-yellow-400">Enviar para o WhatsApp</button>
+        <button onclick="finalizarPedido()" class="bg-amber-600 w-full py-2 rounded-xl font-bold hover:bg-amber-500">Enviar para o WhatsApp</button>
         <button onclick="fecharModalNome()" class="bg-red-500 w-full py-2 rounded-xl font-bold hover:bg-red-400">Cancelar</button>
       </div>
     </div>
@@ -253,8 +253,8 @@
             <h3 class="text-xl font-bold mb-2">${p.nome}</h3>
             <p class="text-gray-300 mb-2">${p.descricao || "Produto gelado e pronto para você!"}</p>
             <div class="flex justify-between items-center">
-              <span class="text-lg font-semibold text-yellow-400">R$ ${p.preco.toFixed(2)}</span>
-              <button onclick="adicionarCarrinho('${p.nome}', ${p.preco})" class="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-1.5 rounded-xl">Pedir</button>
+              <span class="text-lg font-semibold text-amber-600">R$ ${p.preco.toFixed(2)}</span>
+              <button onclick="adicionarCarrinho('${p.nome}', ${p.preco})" class="bg-amber-600 hover:bg-amber-500 text-black px-4 py-1.5 rounded-xl">Pedir</button>
             </div>
           </div>
         `;
