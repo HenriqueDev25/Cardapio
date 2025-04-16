@@ -108,17 +108,23 @@
     </div>
   </div>
 
-  <!-- Modal para pegar o nome -->
-  <div id="modal-nome" class="fixed inset-0 bg-black/80 hidden z-40 flex items-center justify-center">
-    <div class="bg-white text-black p-6 rounded-xl w-full max-w-lg shadow-xl">
-      <h2 class="text-2xl font-bold mb-4">Qual o seu nome?</h2>
-      <input id="nome-cliente" type="text" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Digite seu nome" />
-      <div class="flex gap-4 mt-6">
-        <button onclick="finalizarPedido()" class="bg-amber-600 w-full py-2 rounded-xl font-bold hover:bg-amber-500">Enviar para o WhatsApp</button>
-        <button onclick="fecharModalNome()" class="bg-red-500 w-full py-2 rounded-xl font-bold hover:bg-red-400">Cancelar</button>
+  <div id="modal-nome" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md">
+      <h2 class="text-2xl font-bold mb-4 text-center">Finalizar pedido</h2>
+  
+      <label for="nome-cliente" class="block mb-1 font-semibold">Nome:</label>
+      <input id="nome-cliente" type="text" class="w-full p-2 mb-4 border border-gray-300 rounded-lg bg-white text-black" placeholder="Digite seu nome" />
+  
+      <label for="endereco-cliente" class="block mb-1 font-semibold">Endereço:</label>
+      <input id="endereco-cliente" type="text" class="w-full p-2 mb-4 border border-gray-300 rounded-lg bg-white text-black" placeholder="Digite seu endereço completo" />
+  
+      <div class="flex justify-between gap-2">
+        <button onclick="fecharModalNome()" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 transition">Voltar</button>
+        <button id="btn-enviar-pedido" onclick="finalizarPedido()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Enviar pedido</button>
       </div>
     </div>
   </div>
+  
 
   <script>
     const cervejas = [
@@ -338,27 +344,41 @@
       modalNome.classList.add("hidden");
     }
 
+
+
+  
+
     function finalizarPedido() {
-      const nome = document.getElementById("nome-cliente").value.trim();
-      if (!nome) {
-        alert("Por favor, informe seu nome.");
-        return;
-      }
+  const nome = document.getElementById("nome-cliente").value.trim();
+  const endereco = document.getElementById("endereco-cliente").value.trim();
 
-      let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
-      let mensagem = `*Pedido da Adega Pai D'égua*\n\nNome: ${nome}\n\nItens:\n`;
-      carrinho.forEach(item => {
-        mensagem += `${item.nome} - ${item.qtd} x R$ ${item.preco.toFixed(2)}\n`;
-      });
-      mensagem += `\nTotal: R$ ${(carrinho.reduce((acc, item) => acc + item.preco * item.qtd, 0)).toFixed(2)}`;
+  if (!nome || !endereco) {
+    alert("Por favor, preencha seu nome e endereço.");
+    return;
+  }
 
-      const whatsappLink = `https://wa.me/5511981127561?text=${encodeURIComponent(mensagem)}`;
-      window.open(whatsappLink, "_blank");
+  const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
 
-      limparCarrinho();
-      fecharCarrinho();
-      fecharModalNome();
-    }
+  let mensagem = `Olá! Meu nome é ${nome}, gostaria de fazer um pedido:\n\n`;
+
+  carrinho.forEach(item => {
+    mensagem += `- ${item.qtd}x ${item.nome} (R$ ${(item.preco * item.qtd).toFixed(2)})\n`;
+  });
+
+  const total = carrinho.reduce((acc, item) => acc + item.preco * item.qtd, 0);
+  mensagem += `\nTotal: R$ ${total.toFixed(2)}\n`;
+  mensagem += `\nEndereço para entrega: ${endereco}`;
+
+  const url = `https://wa.me/5511914042925?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, "_blank");
+
+  localStorage.removeItem("carrinho");
+  fecharModalNome();
+  fecharCarrinho();
+  atualizarCarrinho();
+}
+
+
 
     function mostrarToast() {
       const toast = document.getElementById("toast");
